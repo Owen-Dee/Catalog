@@ -34,13 +34,21 @@ export default class App extends React.Component<any, appState> {
         this.setState({ count: this.state.count + 1 });
     }
 
+    plus() {
+        this.setState({ count: this.state.count - 1 });
+    }
+
     render() {
-        const numbers = [1, 2, 3, 4, 5, 6 ,7 , 8];
+        const numbers = [];
+        for (let i = this.state.count; i < this.state.count + 9; i++) {
+            numbers.push(i);
+        }
         return (
             <div className="app-control">
                 <NumberList numbers={numbers}/>
                 <h1 className="size-control">Count: {this.state.count}</h1>
-                <button className="button-control" onClick={this.add.bind(this)}>增加1</button>
+                <button className="button-control" onClick={this.add.bind(this)}>+1</button>
+                <button className="button-control" onClick={this.plus.bind(this)}>-1</button>
             </div>
         );
     }

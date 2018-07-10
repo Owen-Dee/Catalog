@@ -1,10 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import Hello from './views/hello';
+import StoreConfig from './store';
 
-import { Ant } from './components/ant';
-import App from './components/app';
+const store = StoreConfig();
 
 ReactDOM.render(
-	<App />,
- 	document.querySelector('#app')
+	<Provider store={store}>
+		<Hello />
+	</Provider>,
+	document.querySelector('#app')
 );
