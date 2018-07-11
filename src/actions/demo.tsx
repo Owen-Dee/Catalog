@@ -1,3 +1,8 @@
+/**
+ * @component actions
+ * @description demo动作和函数
+ **/
+
 import * as constants from '../constants/demo';
 
 export interface IncrementEnthusiasm {
