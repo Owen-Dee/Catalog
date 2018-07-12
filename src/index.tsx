@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Hello from './views/hello';
+import Hello from './containers/hello';
 import StoreConfig from './store';
 
 const store = StoreConfig();
