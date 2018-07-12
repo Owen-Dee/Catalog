@@ -1,0 +1,45 @@
+@import '../../../style/common';
+.catalog-sidebar {
+    position: relative;
+    width: $catalogSidebarWidth;
+    height: 100%;
+    background: $globalGrayBackgroundColor;
+    .sidebar-item {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid $globalDarkBackgroundColor;
+        cursor: pointer;
+        .mark-info {
+            position: absolute;
+            top: 0px;
+            height: 100%;
+            width: 80px;
+            left: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: $catalogMarkInfoColor;
+            color: $goldColor;
+        }
+    }
+    .category-items {
+        width: 100%;
+        height: auto;
+        background: $sidebarMenuActiveBackgroundColor;
+        .item {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .item:hover {
+            color: $goldColor;
+        }
+    }
+}
