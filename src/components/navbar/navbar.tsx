@@ -9,7 +9,7 @@ export default class Navbar extends React.Component<{}, {}> {
     render() {
         return(
             <div className="navbar-container">
-                <span className="title">Navbar</span>
+                <span className="title">GoldMantis Navbar</span>
             </div>
         );
     }

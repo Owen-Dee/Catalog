@@ -1,49 +1,29 @@
 import * as React from 'react';
+import SidebarItem from '../sidebaritem/sidebaritem';
+import { CatalogSidebarProps, CatalogSidebarStates, CatalogSidebarType } from '../../../entity/componententity';
 import './globalsearch.scss';
 
-interface GlobalSearchStates {
-    display: boolean
-}
-
-export default class GlobalSearch extends React.Component<{}, GlobalSearchStates> {
-    constructor(props) {
+export default class GlobalSearch extends React.Component<CatalogSidebarProps, CatalogSidebarStates> {
+    constructor(props: CatalogSidebarProps) {
         super(props);
         this.state = {
             display: false
         };
     }
 
-    mouseEnter() {
-        this.setState({
-            display: true
-        });
-    }
-
-    mouseLeave() {
-        this.setState({
-            display: false
-        });
-    }
-
-    handleClick() {
-        alert('Hi, you enter global search...');
-    }
-
     render() {
+        let showCategories = this.props.sidebarType === CatalogSidebarType.GlobalSearch;
+
         return(
-            <div className="sidebar-item"
-                onMouseEnter={this.mouseEnter.bind(this)}
-                onMouseLeave={this.mouseLeave.bind(this)}
-                onClick={this.handleClick.bind(this)}>
-                <img src={require('./img/search.svg')}
-                    style={!this.state.display ? { display: 'block' } : { display: 'none' }} />
-                <img src={require('./img/search_light.svg')}
-                    style={this.state.display ? { display: 'block' } : { display: 'none' }} />
-                <div className="mark-info"
-                    style={this.state.display ? { display: 'flex' } : { display: 'none' }}>
-                    全局渲染
-                </div>
-            </div>
+            <SidebarItem sidebarMenuName="全局搜索"
+                normalImg="./search.svg"
+                activeImg="./search_light.svg"
+                showCategories={showCategories}
+                sidebarType={CatalogSidebarType.GlobalSearch}
+                isNotGlobalSearch={false}
+                onSidebarTypeChange={this.props.onSidebarTypeChange}
+            >
+            </SidebarItem>
         );
     }
 }
