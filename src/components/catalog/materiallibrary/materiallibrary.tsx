@@ -52,13 +52,15 @@ export default class MaterialLibrary extends React.Component<CatalogSidebarProps
 
     handleFirstMenuEnter(category, index) {
         let categories = [];
+        let menuIndex = -1;
         if (category.categories && category.categories.length > 0) {
             categories = category.categories;
+            menuIndex = index;
         } 
 
         let submenuOfftop = (40 * index) + 'px';
         this.setState({
-            menuIndex: index,
+            menuIndex: menuIndex,
             categories: categories,
             submenuOfftop: submenuOfftop
         });

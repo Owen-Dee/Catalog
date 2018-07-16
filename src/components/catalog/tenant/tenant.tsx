@@ -52,13 +52,15 @@ export default class Tenant extends React.Component<CatalogSidebarProps, Catalog
 
     handleFirstMenuEnter(category, index) {
         let categories = [];
+        let menuIndex = index;
         if (category.categories && category.categories.length > 0) {
             categories = category.categories;
+            menuIndex = index;
         }
 
         let submenuOfftop = (40 * index) + 'px';
         this.setState({
-            menuIndex: index,
+            menuIndex: menuIndex,
             categories: categories,
             submenuOfftop: submenuOfftop
         });
