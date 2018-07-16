@@ -10,6 +10,7 @@ export default class Tenant extends React.Component<CatalogSidebarProps, Catalog
     constructor(props: CatalogSidebarProps) {
         super(props);
         this.state = {
+            activeMenuId: '',
             activeIndex: -1,
             menuIndex: -1,
             categories: [],
@@ -73,8 +74,9 @@ export default class Tenant extends React.Component<CatalogSidebarProps, Catalog
         });
     }
 
-    handleClickSubmenu(activeIndex) {
+    handleClickSubmenu(categoryId, activeIndex) {
         this.setState({
+            activeMenuId: categoryId,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
@@ -1460,6 +1462,7 @@ export default class Tenant extends React.Component<CatalogSidebarProps, Catalog
                         {menuList}
                     </PerfectScrollbar>
                     <CatalogSubmenu categories={this.state.categories}
+                        activeMenuId={this.state.activeMenuId}
                         menuIndex={this.state.menuIndex}
                         submenuOfftop={this.state.submenuOfftop}
                         onSubmenuClick={this.handleClickSubmenu.bind(this)}>

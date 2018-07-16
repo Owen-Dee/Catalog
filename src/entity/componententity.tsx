@@ -16,12 +16,14 @@ export interface CatalogSidebarStates {
 }
 /**
  * @description: CatalogSidebarCategoryStates:后台接口获取的category分类,涉及的状态
+ * @activeMenuId: 按钮被点击后,记录category id
  * @activeIndex: 按钮被点击激活状态
  * @menuIndex: 鼠标放在按钮上的激活状态
  * @categories: 二级菜单对应的数据
  * @submenuOfftop: 二级菜单对应的top值
  */
 export interface CatalogSidebarCategoryStates {
+    activeMenuId: string,
     activeIndex: number,
     menuIndex: number,
     categories: Array<any>,
@@ -55,8 +57,9 @@ export interface SidebarItemProps {
 export interface CatalogSubmenuProps {
     categories: Array<any>,
     submenuOfftop: string,
+    activeMenuId: string,
     menuIndex: number,
-    onSubmenuClick: (val) => void
+    onSubmenuClick: (val1, val2) => void
 }
 /**
  * @description: CatalogSubmenuStates: catalog二级和多级菜单对应的状态

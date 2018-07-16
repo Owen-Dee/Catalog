@@ -15,12 +15,11 @@ export default class CatalogSubmenu extends React.Component<CatalogSubmenuProps,
     getSubmenuList() {
         const submenuList = this.props.categories.map((category) => {
             let thirdMenuList = this.getThirdMenuList(category);
+            let isMenuActive = this.props.activeMenuId === this.state.activeMenuId && this.state.activeMenuId === category.id;
             return <div className="second-menu" key={category.id}>
                         <div className={['second-menu-name', 
             							 'menu-name',
-            							 this.state.activeMenuId === category.id
-	                                         ? 'active'
-	                                         : ''].join(' ')}
+            							 isMenuActive ? 'active' : ''].join(' ')}
 	                         onClick={this.handleSubmenuClicked.bind(this, category)}>
                             {category.name}
                         </div>
@@ -37,7 +36,7 @@ export default class CatalogSubmenu extends React.Component<CatalogSubmenuProps,
 
     getThirdMenuList(category) {
         const thirdMenuList = category.categories.map((item) => {
-        	let isMenuActive = this.state.activeMenuId === item.id;
+        	let isMenuActive = this.props.activeMenuId === this.state.activeMenuId && this.state.activeMenuId === item.id;
             return <div className={['third-menu-name', 
             						'menu-name',
             						isMenuActive ? 'active' : ''].join(' ')}
@@ -56,7 +55,7 @@ export default class CatalogSubmenu extends React.Component<CatalogSubmenuProps,
     	this.setState({
     		activeMenuId: category.id
     	});
-    	this.props.onSubmenuClick(this.props.menuIndex);
+    	this.props.onSubmenuClick(category.id ,this.props.menuIndex);
     }
 
     render() {
