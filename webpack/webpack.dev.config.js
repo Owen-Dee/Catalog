@@ -12,7 +12,7 @@ module.exports = merge(webpackConfig, {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:9090',
+    'webpack-dev-server/client?http://localhost:6090',
     'webpack/hot/only-dev-server',
     path.resolve(__dirname, '../src/index.tsx')
   ],
@@ -33,7 +33,7 @@ module.exports = merge(webpackConfig, {
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
     // 设置localhost端口
-    port: 9090,
+    port: 6090,
     publicPath: "/",
     inline: true, // 自动刷新
     hot: true, // 开启热模块替换
