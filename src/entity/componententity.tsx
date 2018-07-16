@@ -15,6 +15,19 @@ export interface CatalogSidebarStates {
     display: boolean,
 }
 /**
+ * @description: CatalogSidebarCategoryStates:后台接口获取的category分类,涉及的状态
+ * @activeIndex: 按钮被点击激活状态
+ * @menuIndex: 鼠标放在按钮上的激活状态
+ * @categories: 二级菜单对应的数据
+ * @submenuOfftop: 二级菜单对应的top值
+ */
+export interface CatalogSidebarCategoryStates {
+    activeIndex: number,
+    menuIndex: number,
+    categories: Array<any>,
+    submenuOfftop: string
+}
+/**
  * @description: SidebarItem
  * @sidebarMenuName: sidebar 菜单按钮名称
  * @sidebarType: sidebar 类型
@@ -32,6 +45,25 @@ export interface SidebarItemProps {
     showCategories: boolean,
     isNotGlobalSearch: boolean,
     onSidebarTypeChange: (val) => void
+}
+/**
+ * @description: CatalogSubmenuProps: catalog二级和多级菜单对应的属性
+ * @menuIndex: 鼠标放在按钮上的激活状态
+ * @categories: 二级菜单对应的数据
+ * @submenuOfftop: 二级菜单对应的top值
+ */
+export interface CatalogSubmenuProps {
+    categories: Array<any>,
+    submenuOfftop: string,
+    menuIndex: number,
+    onSubmenuClick: (val) => void
+}
+/**
+ * @description: CatalogSubmenuStates: catalog二级和多级菜单对应的状态
+ * @activeMenuId: 按钮被点击后,记录category id
+ */
+export interface CatalogSubmenuStates {
+    activeMenuId: string
 }
 
 export enum CatalogSidebarType {
