@@ -1,14 +1,11 @@
 import * as React from 'react';
 import SidebarItem from '../sidebaritem/sidebaritem';
-import { CatalogSidebarProps, CatalogSidebarStates, CatalogSidebarType } from '../../../entity/componententity';
+import { ICatalogSidebarProps, CatalogSidebarType } from '../../../entity/componententity';
 import './globalsearch.scss';
 
-export default class GlobalSearch extends React.Component<CatalogSidebarProps, CatalogSidebarStates> {
-    constructor(props: CatalogSidebarProps) {
+export default class GlobalSearch extends React.Component<ICatalogSidebarProps, any> {
+    constructor(props: ICatalogSidebarProps) {
         super(props);
-        this.state = {
-            display: false
-        };
     }
 
     render() {

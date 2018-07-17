@@ -4,14 +4,10 @@ import FreeDesign from '../freedesign/freedesign';
 import Tenant from '../tenant/tenant';
 import MaterialLibrary from '../materiallibrary/materiallibrary';
 import UserCenter from '../usercenter/usercenter';
-import { CatalogSidebarType } from '../../../entity/componententity';
+import { ICatalogSidebarStates, CatalogSidebarType } from '../../../entity/componententity';
 import './catalogsidebar.scss';
 
-interface CatalogSidebarStates {
-    sidebarType: string
-}
-
-export default class CatalogSidebar extends React.Component<any, CatalogSidebarStates> {
+export default class CatalogSidebar extends React.Component<any, ICatalogSidebarStates> {
     constructor(props) {
         super(props);
         this.state = {

@@ -3,31 +3,31 @@
  * @sidebarType: sidebar 类型
  * @onSidebarTypeChange: 监听sidebar 类型的改变
  */
-export interface CatalogSidebarProps {
+export interface ICatalogSidebarProps {
     sidebarType: string,
     onSidebarTypeChange: (val) => void
 }
 /**
  * @description: 组件CatalogSidebar对应的state
- * @display: 是否显示相关的样式
+ * @sidebarType: sidebar 类型('字符串')
  */
-export interface CatalogSidebarStates {
-    display: boolean,
+export interface ICatalogSidebarStates {
+    sidebarType: string
 }
 /**
- * @description: CatalogSidebarCategoryStates:后台接口获取的category分类,涉及的状态
+ * @description: 后台接口获取的category分类,涉及的状态
  * @activeMenuId: 按钮被点击后,记录category id
  * @activeIndex: 按钮被点击激活状态
  * @menuIndex: 鼠标放在按钮上的激活状态
  * @categories: 二级菜单对应的数据
- * @submenuOfftop: 二级菜单对应的top值
+ * @submenuOffsetTop: 二级菜单对应的top值
  */
-export interface CatalogSidebarCategoryStates {
+export interface ICatalogCategoryStates {
     activeMenuId: string,
     activeIndex: number,
     menuIndex: number,
     categories: Array<any>,
-    submenuOfftop: string
+    submenuOffsetTop: string
 }
 /**
  * @description: SidebarItem
@@ -39,7 +39,7 @@ export interface CatalogSidebarCategoryStates {
  * @isNotGlobalSearch: 不是全局搜索
  * @onSidebarTypeChange: 监听sidebar 类型的改变
  */
-export interface SidebarItemProps {
+export interface ISidebarItemProps {
     sidebarMenuName: string,
     sidebarType: string,
     normalImg: string,
@@ -49,26 +49,49 @@ export interface SidebarItemProps {
     onSidebarTypeChange: (val) => void
 }
 /**
- * @description: CatalogSubmenuProps: catalog二级和多级菜单对应的属性
+ * @description: SidebarItem
+ * @display: 是否显示每个图标右侧的提示信息
+ */
+export interface ISidebarItemStates {
+    display: boolean
+}
+/**
+ * @description: ICatalogSubmenuProps: catalog二级和多级菜单对应的属性
  * @menuIndex: 鼠标放在按钮上的激活状态
  * @categories: 二级菜单对应的数据
- * @submenuOfftop: 二级菜单对应的top值
+ * @submenuOffsetTop: 二级菜单对应的top值
  */
-export interface CatalogSubmenuProps {
+export interface ICatalogSubmenuProps {
     categories: Array<any>,
-    submenuOfftop: string,
+    submenuOffsetTop: string,
     activeMenuId: string,
     menuIndex: number,
     onSubmenuClick: (val1, val2) => void
 }
 /**
- * @description: CatalogSubmenuStates: catalog二级和多级菜单对应的状态
+ * @description: ICatalogSubmenuStates: catalog二级和多级菜单对应的状态
  * @activeMenuId: 按钮被点击后,记录category id
  */
-export interface CatalogSubmenuStates {
+export interface ICatalogSubmenuStates {
     activeMenuId: string
 }
-
+/**
+ * @description: catalog模型的分类属性
+ * @showCategories: 是否显示下拉分类
+ * @categories: 分类数据
+ */
+export interface ICatalogCategoryProps {
+    showCategories: boolean,
+    categories: Array<any>
+}
+/**
+ * @description: Catalog Sidebar的枚举类型
+ * @GlobalSearch: 全局搜索
+ * @FreeDesign: 自由设计
+ * @MaterialLibrary: 素材库
+ * @Tenant: 定制厂商
+ * @UserCenter: 用户中心
+ */
 export enum CatalogSidebarType {
     GlobalSearch = 'GlobalSearch',
     FreeDesign = 'FreeDesign',

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { CatalogSubmenuProps, CatalogSubmenuStates} from '../../../entity/componententity';
+import { ICatalogSubmenuProps, ICatalogSubmenuStates} from '../../../entity/componententity';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import './catalogsubmenu.scss';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-export default class CatalogSubmenu extends React.Component<CatalogSubmenuProps, CatalogSubmenuStates> {
-    constructor(props: CatalogSubmenuProps) {
+export default class CatalogSubmenu extends React.Component<ICatalogSubmenuProps, ICatalogSubmenuStates> {
+    constructor(props: ICatalogSubmenuProps) {
         super(props);
         this.state = {
         	activeMenuId: ''
@@ -62,7 +62,7 @@ export default class CatalogSubmenu extends React.Component<CatalogSubmenuProps,
         let submenuList = this.getSubmenuList();
         let displayStyle = this.props.menuIndex > -1 ? 'block' : 'none';
         return(
-           <div className="category-submenu" style={{top: this.props.submenuOfftop, display: displayStyle}}>
+           <div className="category-submenu" style={{top: this.props.submenuOffsetTop, display: displayStyle}}>
                 <PerfectScrollbar>
                     {submenuList}
                 </PerfectScrollbar>

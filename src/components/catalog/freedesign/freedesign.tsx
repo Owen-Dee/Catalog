@@ -1,14 +1,11 @@
 import * as React from 'react';
 import SidebarItem from '../sidebaritem/sidebaritem';
-import { CatalogSidebarProps, CatalogSidebarStates, CatalogSidebarType } from '../../../entity/componententity'
+import { ICatalogSidebarProps, CatalogSidebarType } from '../../../entity/componententity'
 import './freedesign.scss';
 
-export default class FreeDesign extends React.Component<CatalogSidebarProps, CatalogSidebarStates> {
-    constructor(props: CatalogSidebarProps) {
+export default class FreeDesign extends React.Component<ICatalogSidebarProps, any> {
+    constructor(props: ICatalogSidebarProps) {
         super(props);
-        this.state = {
-            display: false,
-        };
     }
 
     render() {
@@ -27,8 +24,12 @@ export default class FreeDesign extends React.Component<CatalogSidebarProps, Cat
                 </SidebarItem>
                 <div className="category-items"
                     style={showCategories ? { display: 'block' } : { display: 'none' }}>
-	            	<div className="item">户型</div>
-	            	<div className="item">水电</div>
+	            	<div className="item">
+                        <div className="first-menu-name menu-name">户型</div>
+                    </div>
+	            	<div className="item">
+                        <div className="first-menu-name menu-name">水电</div>
+                    </div>
 	            </div>
         	</div>
         );

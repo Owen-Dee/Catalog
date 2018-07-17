@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { SidebarItemProps, CatalogSidebarStates } from '../../../entity/componententity';
+import { ISidebarItemProps, ISidebarItemStates } from '../../../entity/componententity';
 import SidebarMenuImgMap from './sidebarmenumap';
 import './sidebarItem.scss';
 
-export default class SidebarItem extends React.Component<SidebarItemProps, CatalogSidebarStates> {
-    constructor(props: SidebarItemProps) {
+export default class SidebarItem extends React.Component<ISidebarItemProps, ISidebarItemStates> {
+    constructor(props: ISidebarItemProps) {
         super(props);
         this.state = {
             display: false,

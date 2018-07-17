@@ -1,85 +1,14 @@
 import * as React from 'react';
 import SidebarItem from '../sidebaritem/sidebaritem';
-import CatalogSubmenu from '../catalogsubmenu/catalogsubmenu';
-import { CatalogSidebarProps, CatalogSidebarCategoryStates, CatalogSidebarType } from '../../../entity/componententity';
+import CatalogCategory from '../catalogcategory/catalogcategory';
+import { ICatalogSidebarProps, CatalogSidebarType } from '../../../entity/componententity';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './tenant.scss';
 
-export default class Tenant extends React.Component<CatalogSidebarProps, CatalogSidebarCategoryStates> {
-    constructor(props: CatalogSidebarProps) {
+export default class Tenant extends React.Component<ICatalogSidebarProps, any> {
+    constructor(props: ICatalogSidebarProps) {
         super(props);
-        this.state = {
-            activeMenuId: '',
-            activeIndex: -1,
-            menuIndex: -1,
-            categories: [],
-            submenuOfftop: '0px'
-        };
-    }
-
-    getMenuList(categories) {
-        const menuList = categories.map((category, index) => {
-            return <div className="item" key={category.id}
-                onMouseEnter={this.handleFirstMenuEnter.bind(this, category, index)}>
-                <div className={['first-menu-name',
-                    'menu-name',
-                    this.state.activeIndex === index
-                        ? 'active'
-                        : ''].join(' ')}
-                    onClick={this.handleFirstMenuClicked.bind(this, category, index)}>
-                    {category.name}
-                </div>
-                <div className="triangle-border-left"
-                    style={(this.state.menuIndex === index)
-                        ? { display: 'block' }
-                        : { display: 'none' }}>
-                    <span></span>
-                </div>
-            </div>
-        });
-
-        return (
-            menuList
-        );
-    }
-
-    handleFirstMenuClicked(category, index) {
-        this.setState({
-            activeIndex: index,
-            menuIndex: -1,
-        });
-    }
-
-    handleFirstMenuEnter(category, index) {
-        let categories = [];
-        let menuIndex = index;
-        if (category.categories && category.categories.length > 0) {
-            categories = category.categories;
-            menuIndex = index;
-        }
-
-        let submenuOfftop = (40 * index) + 'px';
-        this.setState({
-            menuIndex: menuIndex,
-            categories: categories,
-            submenuOfftop: submenuOfftop
-        });
-    }
-
-    handleCategoriesLeave() {
-        this.setState({
-            submenuOfftop: '0px',
-            menuIndex: -1
-        });
-    }
-
-    handleClickSubmenu(categoryId, activeIndex) {
-        this.setState({
-            activeMenuId: categoryId,
-            activeIndex: activeIndex,
-            menuIndex: -1,
-        });
     }
 
     render() {
@@ -1442,7 +1371,6 @@ export default class Tenant extends React.Component<CatalogSidebarProps, Catalog
                 "status": 1
             }
         ];
-        let menuList = this.getMenuList(categories);
 
         return (
             <div className="tenant">
@@ -1455,19 +1383,9 @@ export default class Tenant extends React.Component<CatalogSidebarProps, Catalog
                     onSidebarTypeChange={this.props.onSidebarTypeChange}
                 >
                 </SidebarItem>
-                <div className="category-items"
-                    style={showCategories ? { display: 'block' } : { display: 'none' }}
-                    onMouseLeave={this.handleCategoriesLeave.bind(this)}>
-                    <PerfectScrollbar>
-                        {menuList}
-                    </PerfectScrollbar>
-                    <CatalogSubmenu categories={this.state.categories}
-                        activeMenuId={this.state.activeMenuId}
-                        menuIndex={this.state.menuIndex}
-                        submenuOfftop={this.state.submenuOfftop}
-                        onSubmenuClick={this.handleClickSubmenu.bind(this)}>
-                    </CatalogSubmenu>
-                </div>
+                <CatalogCategory categories={categories}
+                    showCategories={showCategories}>
+                </CatalogCategory>
             </div>
         );
     }

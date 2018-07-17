@@ -1,14 +1,11 @@
 import * as React from 'react';
 import SidebarItem from '../sidebaritem/sidebaritem';
-import { CatalogSidebarProps, CatalogSidebarStates, CatalogSidebarType } from '../../../entity/componententity';
+import { ICatalogSidebarProps, CatalogSidebarType } from '../../../entity/componententity';
 import './usercenter.scss';
 
-export default class UserCenter extends React.Component<CatalogSidebarProps, CatalogSidebarStates> {
+export default class UserCenter extends React.Component<ICatalogSidebarProps, any> {
     constructor(props) {
         super(props);
-        this.state = {
-            display: false
-        };
     }
 
     render() {
@@ -27,9 +24,15 @@ export default class UserCenter extends React.Component<CatalogSidebarProps, Cat
                 </SidebarItem>
                 <div className="category-items"
                     style={showCategories ? { display: 'block' } : { display: 'none' }}>
-                    <div className="item">我的收藏</div>
-                    <div className="item">我的使用</div>
-                    <div className="item">我的上传</div>
+                    <div className="item">
+                        <div className="first-menu-name menu-name">我的收藏</div>
+                    </div>
+                    <div className="item">
+                        <div className="first-menu-name menu-name">我的使用</div>
+                    </div>
+                    <div className="item">
+                        <div className="first-menu-name menu-name">我的上传</div>
+                    </div>
                 </div>
             </div>
         );

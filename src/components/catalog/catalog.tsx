@@ -3,7 +3,7 @@ import CatalogSidebar from './catalogsidebar/catalogsidebar';
 import CatalogContent from './catalogcontent/catalogcontent';
 import './catalog.scss';
 
-export default class Catalog extends React.Component<{}, {}> {
+export default class Catalog extends React.Component<any, any> {
     constructor(props) {
         super(props);
     }
