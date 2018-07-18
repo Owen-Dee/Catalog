@@ -15,6 +15,13 @@ export interface ICatalogSidebarStates {
     sidebarType: string
 }
 /**
+ * @description: 组件MaterialLibrary/Tenant对应的state
+ * @sidebarType: sidebar 类型('字符串')
+ */
+export interface ICatalogModelStates {
+    categories: Array<any>
+}
+/**
  * @description: 后台接口获取的category分类,涉及的状态
  * @activeMenuId: 按钮被点击后,记录category id
  * @activeIndex: 按钮被点击激活状态

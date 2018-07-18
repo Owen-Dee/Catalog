@@ -10,4 +10,6 @@ const StoreConfig = () => {
     );
 }
 
-export default StoreConfig;
+const store = StoreConfig();
+
+export default store;
