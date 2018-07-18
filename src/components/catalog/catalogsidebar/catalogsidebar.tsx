@@ -8,7 +8,7 @@ import { ICatalogSidebarStates, CatalogSidebarType } from '../../../entity/compo
 import './catalogsidebar.scss';
 
 import store from '../../../store/index';
-import * as Actions from '../../../actions/demo';
+import * as Actions from '../../../actions/catalog';
 
 export default class CatalogSidebar extends React.Component<any, ICatalogSidebarStates> {
     constructor(props) {
@@ -19,7 +19,7 @@ export default class CatalogSidebar extends React.Component<any, ICatalogSidebar
     }
 
     handleSidebarTypeChange(sidebarType) {
-        store.dispatch(Actions.incrementEnthusiasm());
+        store.dispatch(Actions.changeCatalogType());
         this.setState({
             sidebarType: sidebarType
         });

@@ -10,11 +10,11 @@ export default class CatalogContent extends React.Component<any, CatalogContentS
     constructor(props) {
         super(props);
         this.state = {
-            catalogType: store.getState().demo.languageName + store.getState().demo.enthusiasmLevel
+            catalogType: store.getState().catalog.catalogType
         };
         store.subscribe(() => {
             this.setState({
-                catalogType: store.getState().demo.languageName + store.getState().demo.enthusiasmLevel
+                catalogType: store.getState().catalog.catalogType
             });
         });
     }
