@@ -33,7 +33,7 @@ module.exports = {
                 use: [{
                     loader: 'style-loader'
                 }, {
-                    loader: 'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+                    loader: 'css-loader',
                 }],
             },
             {
@@ -41,7 +41,7 @@ module.exports = {
                 use: [{
                     loader: 'style-loader',
                 }, {
-                    loader: 'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+                    loader: 'css-loader',
                 }, {
                     loader: 'less-loader',
                     options: {
@@ -54,7 +54,7 @@ module.exports = {
                 use: [{
                     loader: 'style-loader',
                 }, {
-                    loader: 'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+                    loader: 'css-loader',
                 }, {
                     loader: 'sass-loader',
                     options: {
