@@ -6,12 +6,14 @@
 import * as constants from '../constants/catalog';
 
 export interface ICatalogType {
-	type: constants.CHANGE_CATALOG_TYPE;
+	type: constants.CHANGE_CATALOG_TYPE,
+	value: string
 }
 
-export function changeCatalogType(): ICatalogType {
+export function changeCatalogType(catalogType: string): ICatalogType {
 	return {
-		type: constants.CHANGE_CATALOG_TYPE
+		type: constants.CHANGE_CATALOG_TYPE,
+		value: catalogType
 	}
 }
 

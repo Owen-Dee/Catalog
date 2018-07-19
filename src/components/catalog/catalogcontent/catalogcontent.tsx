@@ -1,5 +1,6 @@
 import * as React from 'react';
 import store from '../../../store/index';
+import CatalogAbstractFactory from '../utils/catalogabstractfactory';
 import './catalogcontent.scss';
 
 interface CatalogContentStates {
@@ -20,14 +21,21 @@ export default class CatalogContent extends React.Component<any, CatalogContentS
     }
 
     componentWillMount() {
-        let name = store.getState().demo.languageName;
+        let name = store.getState().catalog.catalogType;
+        console.log(name);
+    }
+
+    componentWillUpdate() {
+        let name = store.getState().catalog.catalogType;
         console.log(name);
     }
 
     render() {
+        let contentType = store.getState().catalog.catalogType;
+        let ContentComponent = CatalogAbstractFactory.getModule(contentType);
         return (
             <div className="catalog-content">
-                {this.state.catalogType}
+                <ContentComponent />  
             </div>
         );
     }

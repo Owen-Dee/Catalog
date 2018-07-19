@@ -24,6 +24,7 @@
             align-items: center;
             background: $catalogMarkInfoColor;
             color: $goldColor;
+            z-index: 100;
         }
         .triangle-border-up {
             display: block;

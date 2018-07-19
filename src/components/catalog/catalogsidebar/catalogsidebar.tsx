@@ -1,10 +1,10 @@
 import * as React from 'react';
-import GlobalSearch from '../globalsearch/globalsearch';
-import FreeDesign from '../freedesign/freedesign';
-import Tenant from '../tenant/tenant';
-import MaterialLibrary from '../materiallibrary/materiallibrary';
-import UserCenter from '../usercenter/usercenter';
-import { ICatalogSidebarStates, CatalogSidebarType } from '../../../entity/componententity';
+import GlobalSearch from './globalsearch/globalsearch';
+import FreeDesign from './freedesign/freedesign';
+import Tenant from './tenant/tenant';
+import MaterialLibrary from './materiallibrary/materiallibrary';
+import UserCenter from './usercenter/usercenter';
+import { ICatalogSidebarStates, CatalogSidebarType, CatalogContentType } from '../../../entity/catalogentity';
 import './catalogsidebar.scss';
 
 import store from '../../../store/index';
@@ -19,12 +19,11 @@ export default class CatalogSidebar extends React.Component<any, ICatalogSidebar
     }
 
     handleSidebarTypeChange(sidebarType) {
-        store.dispatch(Actions.changeCatalogType());
         this.setState({
             sidebarType: sidebarType
         });
         if (sidebarType === CatalogSidebarType.GlobalSearch) {
-            alert('You enter global search...');
+            store.dispatch(Actions.changeCatalogType(CatalogContentType.GlobalSearchMaterial));
         }
     }
 

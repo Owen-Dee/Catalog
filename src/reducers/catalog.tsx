@@ -1,10 +1,10 @@
 import { All } from '../actions/catalog';
-import { Catalog } from '../entity';
+import { Catalog } from '../entity/storeentity';
 import * as Constants from '../constants/catalog';
-import { CatalogSidebarType } from '../entity/componententity';
+import { CatalogContentType } from '../entity/catalogentity';
 
 const initState = {
-	catalogType: CatalogSidebarType.GlobalSearch,
+	catalogType: CatalogContentType.GlobalSearchMaterial,
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -12,7 +12,7 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 		case Constants.CHANGE_CATALOG_TYPE:
 			return {
 				...state,
-				catalogType: state.catalogType + 1
+				catalogType: action.value
 			};
 			break;
 		default:

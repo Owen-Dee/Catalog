@@ -3,7 +3,7 @@ import Navbar from '../navbar/navbar';
 import Catalog from '../catalog/catalog';
 import './app.scss';
 
-export default class App extends React.Component<{}, {}> {
+export default class App extends React.Component<any, any> {
     constructor(props) {
         super(props);
     }
