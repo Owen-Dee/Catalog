@@ -1,20 +1,11 @@
 import * as React from 'react';
-import { ICatalogSidebarProps, ICatalogModelStates} from '../../../../entity/catalogentity';
 import CatalogConfig from '../../utils/catalogconfig';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './housedesign.scss';
 
-interface IHouseDesignProps {
-
-}
-
-interface IHouseDesignStates {
-
-}
-
-export default class HouseDesign extends React.Component<IHouseDesignProps, IHouseDesignStates> {
-    constructor(props: IHouseDesignProps) {
+export default class HouseDesign extends React.Component<any, any> {
+    constructor(props) {
         super(props);
     }
 

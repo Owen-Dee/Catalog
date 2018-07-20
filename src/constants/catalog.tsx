@@ -1,2 +1,11 @@
+/**
+ * 1.CHANGE_CATALOG_TYPE: 修改catalog的类型
+ */
 export const CHANGE_CATALOG_TYPE = 'CHANGE_CATALOG_TYPE'; 
 export type CHANGE_CATALOG_TYPE = typeof CHANGE_CATALOG_TYPE;
+
+/**
+ * 2.Change_CATALOG_MODELS: 获取catalog模型数据
+ */
+export const CHANGE_CATALOG_MODELS = 'CHANGE_CATALOG_MODELS';
+export type CHANGE_CATALOG_MODELS = typeof CHANGE_CATALOG_MODELS;

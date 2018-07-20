@@ -152,4 +152,156 @@ export default class CatalogConfig {
 
         return houseToolConfigs;
     } 
+
+        /**
+     * [getHydropowerTools: 户型绘制->水电配置工具]
+     * @return {[type]} [description]
+     */
+    static getHydropowerTools() {
+        const hydropowerToolImgPath = require['context']('../catalogcontent/hydropower/img/', false, /\.(png|jpe?g|gif|svg)$/);
+
+        let hydropowerToolConfigs = [{
+            id: 'hydropower',
+            title: '水电部分',
+            children: [{
+                id: '34cd70d4-efc6-3907-1628-2ec31d136aaa',
+                title: '强电箱',
+                img: hydropowerToolImgPath('./StrongElectricBox.svg')
+            }, {
+                id: '88723f9c-2aa3-8c02-c151-2087600e6ce4',
+                title: '弱电箱',
+                img: hydropowerToolImgPath('./WeakBox.svg')
+            }, {
+                id: '5b2c7b9a-0157-431d-e425-f84738faf454',
+                title: '防水面板',
+                img: hydropowerToolImgPath('./WaterproofPanel.svg')
+            }]
+        }, {
+            id: 'coldAndHotWater',
+            title: '冷热水',
+            children: [{
+                id: '0da87eb8-c9bb-56be-31af-083debc30686',
+                title: '冷热水口',
+                img: hydropowerToolImgPath('./HotAndColdWaterOutlet.svg')
+            }, {
+                id: '56c89ffa-88da-98ef-8b11-397e631d4a41',
+                title: '冷水口',
+                img: hydropowerToolImgPath('./ColdWaterOutlet.svg')
+            }, {
+                id: '0ef2150c-94ba-2c13-1d0a-cfdd81696c4a',
+                title: '热水口',
+                img: hydropowerToolImgPath('./HotWaterOutlet.svg')
+            }]
+        }, {
+            id: 'switchPanel',
+            title: '开关类型',
+            children: [{
+                id: '43523109-c150-61fe-f091-c25793c0ceb6',
+                title: '单联开关',
+                img: hydropowerToolImgPath('./SingleLinkSwitch.svg')
+            }, {
+                id: '8096170e-83c1-3b44-b821-02386f1a0061',
+                title: '双联开关',
+                img: hydropowerToolImgPath('./DoubleSwitch.svg')
+            }, {
+                id: 'a9c79a0a-33e4-9b79-cb1b-d626b7d858bf',
+                title: '三联开关',
+                img: hydropowerToolImgPath('./TripleSwitch.svg')
+            }, {
+                id: '085e9900-6a44-faf6-1030-689944d7bba1',
+                title: '四联开关',
+                img: hydropowerToolImgPath('./QuadrupleSwitch.svg')
+            }, {
+                id: '34af74c0-8626-115f-02d5-33d99aa5871c',
+                title: '防水单联开关',
+                img: hydropowerToolImgPath('./WaterproofSingleSwitch.svg')
+            }, {
+                id: 'e0486594-2d8f-f080-455b-6a0e44623f47',
+                title: '防水双联开关',
+                img: hydropowerToolImgPath('./WaterproofDoubleSwitch.svg')
+            }, {
+                id: 'c7764d4d-f98b-adec-afcb-e57962e69dad',
+                title: '防水三联开关',
+                img: hydropowerToolImgPath('./WaterproofTripleSwitch.svg')
+            }, {
+                id: '369401fd-23a7-14d1-03e2-d5d4468a9b52',
+                title: '防水四联开关',
+                img: hydropowerToolImgPath('./WaterproofQuadrupleSwitch.svg')
+            }, {
+                id: '399c3edf-ff61-62d5-f0a0-6c3a31964307',
+                title: '浴霸开关',
+                img: hydropowerToolImgPath('./YubaSwitch.svg')
+            }]
+        }, {
+            id: 'socketType',
+            title: '插座类型',
+            children: [{
+                id: 'd98caf52-31ec-9c27-89d3-d748f623f04b',
+                title: '三孔插座',
+                img: hydropowerToolImgPath('./ThreeHoleSocket.svg')
+            }, {
+                id: '6e6d860d-da2b-3171-8333-0136ce7bdaf8',
+                title: '大功率插座',
+                img: hydropowerToolImgPath('./HighPowerSocket.svg')
+            }, {
+                id: '63674734-4adc-3efa-0926-d4ca71ae4566',
+                title: '五孔插座',
+                img: hydropowerToolImgPath('./FiveHoleSocket.svg')
+            }, {
+                id: '3b2bad0e-1f47-9b6d-171f-2adaeceb2a2c',
+                title: '多功能插座',
+                img: hydropowerToolImgPath('./MultiFunctionSocket.svg')
+            }, {
+                id: '262f3f04-951a-40b8-8b31-ea94a6209d2e',
+                title: '五孔开关插座',
+                img: hydropowerToolImgPath('./FiveHoleSocketSwitch.svg')
+            }, {
+                id: '037cc1d5-c9f6-65c9-e9c0-b3f72da8f590',
+                title: '三孔开关插座',
+                img: hydropowerToolImgPath('./ThreeHoleSocketSwitch.svg')
+            }, {
+                id: 'e1539637-9bec-29f5-6252-1c357d72a86c',
+                title: '防水五孔开关插座',
+                img: hydropowerToolImgPath('./WaterproofFiveHoleSocketSwitch.svg')
+            }, {
+                id: '6096022b-8939-ebc1-9b54-0d7dcbf4ab00',
+                title: '防水三孔开关插座',
+                img: hydropowerToolImgPath('./WaterproofThreeHoleSocketSwitch.svg')
+            }, {
+                id: 'bd4b6804-bf80-aebd-693c-3fcd7f6c57d2',
+                title: '防水三孔插座',
+                img: hydropowerToolImgPath('./WaterproofThreeHoleSocket.svg')
+            }, {
+                id: '0e9110c1-4e2a-e601-1aa1-e3a66cea30e2',
+                title: '防水大功率插座',
+                img: hydropowerToolImgPath('./WaterproofHighPowerSocket.svg')
+            }, {
+                id: '8ca5a398-849d-c830-e48d-b5832e74b59d',
+                title: '防水五孔插座',
+                img: hydropowerToolImgPath('./WaterproofFiveHoleSocket.svg')
+            }, {
+                id: '1773c45b-67d0-c511-978d-61fc92cf74d7',
+                title: '防水多功能插座',
+                img: hydropowerToolImgPath('./WaterproofMultiFunctionSocket.svg')
+            }, {
+                id: 'ab422562-cf70-0307-a5e5-d6813435593c',
+                title: '有线电视插座',
+                img: hydropowerToolImgPath('./CableTVOutlet.svg')
+            }, {
+                id: '2958cddd-17cc-3c2f-19f0-fd76eab02a50',
+                title: '电话插座',
+                img: hydropowerToolImgPath('./TelephoneSocket.svg')
+            }, {
+                id: '568eddb0-39b9-801a-ab26-4e97e4a68d77',
+                title: '有线电视网络插座',
+                img: hydropowerToolImgPath('./CableTVNetworkSocket.svg')
+            }, {
+                id: 'b13310c2-191c-2062-dd66-7a164549d2b1',
+                title: '电话网络插座',
+                img: hydropowerToolImgPath('./TelephoneNetworkSocket.svg')
+            }]
+        }];
+
+        return hydropowerToolConfigs;
+    }
 } 

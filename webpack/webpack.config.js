@@ -55,6 +55,9 @@ module.exports = {
                     loader: 'style-loader',
                 }, {
                     loader: 'css-loader',
+                    options: {
+                        sourceMap: true,
+                    },
                 }, {
                     loader: 'sass-loader',
                     options: {

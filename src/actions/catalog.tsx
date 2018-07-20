@@ -1,20 +1,47 @@
 /**
  * @component actions
- * @description demo动作和函数
+ * @description catalog动作和函数
  **/
 
 import * as constants from '../constants/catalog';
+import CatalogService from '../components/catalog/utils/catalogservice';
 
 export interface ICatalogType {
 	type: constants.CHANGE_CATALOG_TYPE,
-	value: string
+	payLoad: string
 }
-
+/**
+ * @description: 更改catalog类型
+ * @param catalogType : 类型值
+ */
 export function changeCatalogType(catalogType: string): ICatalogType {
 	return {
 		type: constants.CHANGE_CATALOG_TYPE,
-		value: catalogType
+		payLoad: catalogType
 	}
 }
 
-export type All = ICatalogType;
+export interface ICatalogModels {
+	type: constants.CHANGE_CATALOG_MODELS,
+	payLoad: object
+}
+
+export function changeCatalogModels(modelsObj: object): ICatalogModels {
+	return {
+		type: constants.CHANGE_CATALOG_MODELS,
+		payLoad: modelsObj
+	}
+}
+
+export function getCatalogModels(categoryId: string) {
+	return (dispatch) => {
+		const catalogService = CatalogService.getInstance();
+		catalogService.getCatalogModels(categoryId).then(result => {
+			dispatch(changeCatalogModels(result.data))
+		}).catch(error => {
+			console.error('getCatalogModels error:' + error);
+		});
+	}
+}
+
+export type All = ICatalogType | ICatalogModels;
