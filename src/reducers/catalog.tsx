@@ -5,7 +5,7 @@ import { CatalogContentType } from '../entity/catalogentity';
 
 const initState = {
 	catalogType: CatalogContentType.GlobalSearchMaterial,
-	modelsObj: {}
+	modelsData: []
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -19,7 +19,7 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 		case Constants.CHANGE_CATALOG_MODELS:
 			return {
 				...state,
-				modelsObj: action.payLoad
+				modelsData: action.payLoad
 			};
 			break;
 		default:

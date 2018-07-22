@@ -1,6 +1,9 @@
 import * as React from 'react';
 import CatalogSubmenu from '../catalogsubmenu/catalogsubmenu';
-import { ICatalogCategoryProps, ICatalogCategoryStates } from '../../../../entity/catalogentity';
+import { ICatalogCategoryProps, ICatalogCategoryStates, CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
+import store from '../../../../store/index';
+import * as Actions from '../../../../actions/catalog';
+import { getCatalogModels } from '../../../../actions/catalog';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogcategory.scss';
@@ -44,11 +47,17 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
     }
 
     handleFirstMenuClicked(category, activeIndex) {
+        if (this.props.sidebarType === CatalogSidebarType.MaterialLibrary ||
+            this.props.sidebarType === CatalogSidebarType.Tenant) {
+            store.dispatch(Actions.changeCatalogType(CatalogContentType.CatalogModel));
+        }
+
         this.setState({
             activeMenuId: category.id,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
+        store.dispatch(getCatalogModels(category.id));
     }
 
     handleFirstMenuEnter(category, index) {
@@ -75,11 +84,17 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
     }
 
     handleClickSubmenu(categoryId, activeIndex) {
+        if (this.props.sidebarType === CatalogSidebarType.MaterialLibrary ||
+            this.props.sidebarType === CatalogSidebarType.Tenant) {
+            store.dispatch(Actions.changeCatalogType(CatalogContentType.CatalogModel));
+        }
+
         this.setState({
             activeMenuId: categoryId,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
+        store.dispatch(getCatalogModels(categoryId));
     }
 
     render() {

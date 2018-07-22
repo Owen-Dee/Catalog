@@ -49,7 +49,8 @@ export default class Tenant extends React.Component<ICatalogSidebarProps, ICatal
                 >
                 </SidebarItem>
                 <CatalogCategory categories={this.state.categories}
-                    showCategories={showCategories}>
+                    showCategories={showCategories}
+                    sidebarType={CatalogSidebarType.Tenant}>
                 </CatalogCategory>
             </div>
         );

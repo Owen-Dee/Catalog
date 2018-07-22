@@ -26,7 +26,7 @@ export default class CatalogService {
         let url = this.categoryUrl + 'SearchProducts' ;
         let data = {
             BrandId:"",
-            CatalogMenuId:"0a8b731a-7b98-6f75-b933-a8995fd08ae1",
+            CatalogMenuId:categoryId,
             CategoryId:"",
             Color:"",
             Facets:"{}",

@@ -88,6 +88,7 @@ export interface ICatalogSubmenuStates {
  * @categories: 分类数据
  */
 export interface ICatalogCategoryProps {
+    sidebarType: string,
     showCategories: boolean,
     categories: Array<any>
 }
@@ -111,9 +112,11 @@ export enum CatalogSidebarType {
  * @GlobalSearchMaterial: 全局搜索材质和模型
  * @HouseDesign: 户型设计
  * @Hydropower: 水电设计
+ * @CatalogModel: catalog 模型
  */
 export enum CatalogContentType {
     GlobalSearchMaterial = 'GlobalSearchMaterial',
     HouseDesign = 'HouseDesign',
     Hydropower = 'Hydropower',
+    CatalogModel = 'CatalogModel',
 }

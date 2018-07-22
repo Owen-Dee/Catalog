@@ -42,7 +42,8 @@ export default class MaterialLibrary extends React.Component<ICatalogSidebarProp
                 >
                 </SidebarItem>
                 <CatalogCategory categories={this.state.categories}
-                    showCategories={showCategories}>
+                    showCategories={showCategories}
+                    sidebarType={CatalogSidebarType.MaterialLibrary}>
                 </CatalogCategory>
             </div>
         );

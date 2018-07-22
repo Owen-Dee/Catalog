@@ -22,12 +22,12 @@ export default class CatalogContent extends React.Component<any, CatalogContentS
 
     componentWillMount() {
         let name = store.getState().catalog.catalogType;
-        console.log(name);
+        console.log('CatalogContent componentWillMount:' + name);
     }
 
-    componentWillUpdate() {
+    componentDidUpdate() {
         let name = store.getState().catalog.catalogType;
-        console.log(name);
+        console.log('CatalogContent componentDidUpdate:' + name);
     }
 
     render() {
@@ -35,7 +35,7 @@ export default class CatalogContent extends React.Component<any, CatalogContentS
         let ContentComponent = CatalogAbstractFactory.getModule(contentType);
         return (
             <div className="catalog-content">
-                <ContentComponent />  
+                <ContentComponent />
             </div>
         );
     }

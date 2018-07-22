@@ -1,6 +1,6 @@
 export interface Catalog {
 	catalogType: string,
-	modelsObj: object
+	modelsData: Array<any>
 }
 
 /**

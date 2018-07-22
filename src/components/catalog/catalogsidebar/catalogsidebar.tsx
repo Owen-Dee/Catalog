@@ -10,8 +10,6 @@ import './catalogsidebar.scss';
 import store from '../../../store/index';
 import * as Actions from '../../../actions/catalog';
 
-import { getCatalogModels } from '../../../actions/catalog';
-
 export default class CatalogSidebar extends React.Component<any, ICatalogSidebarStates> {
     constructor(props) {
         super(props);
@@ -26,7 +24,6 @@ export default class CatalogSidebar extends React.Component<any, ICatalogSidebar
         });
         if (sidebarType === CatalogSidebarType.GlobalSearch) {
             store.dispatch(Actions.changeCatalogType(CatalogContentType.GlobalSearchMaterial));
-            store.dispatch(getCatalogModels('1111'));
         }
     }
 

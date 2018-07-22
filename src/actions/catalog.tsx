@@ -23,13 +23,13 @@ export function changeCatalogType(catalogType: string): ICatalogType {
 
 export interface ICatalogModels {
 	type: constants.CHANGE_CATALOG_MODELS,
-	payLoad: object
+	payLoad: Array<any>
 }
 
-export function changeCatalogModels(modelsObj: object): ICatalogModels {
+export function changeCatalogModels(modelsData: Array<any>): ICatalogModels {
 	return {
 		type: constants.CHANGE_CATALOG_MODELS,
-		payLoad: modelsObj
+		payLoad: modelsData
 	}
 }
 
@@ -37,7 +37,12 @@ export function getCatalogModels(categoryId: string) {
 	return (dispatch) => {
 		const catalogService = CatalogService.getInstance();
 		catalogService.getCatalogModels(categoryId).then(result => {
-			dispatch(changeCatalogModels(result.data))
+			if (!result || !result.data.items) {
+				dispatch(changeCatalogModels([]))
+			}
+
+			const modelsData = result.data.items;
+			dispatch(changeCatalogModels(modelsData));
 		}).catch(error => {
 			console.error('getCatalogModels error:' + error);
 		});
