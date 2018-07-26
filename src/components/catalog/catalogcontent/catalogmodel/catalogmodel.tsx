@@ -1,6 +1,9 @@
 import * as React from 'react';
 import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
+import HeaderSearch from '../headersearch/headersearch';
+import Pagination from '../../common/pagination/pagination';
+import * as ReactPaginate from 'react-paginate';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogmodel.scss';
@@ -16,6 +19,7 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
             modelsData: []
         };
         store.subscribe(() => {
+            debugger;
             this.setState({
                 modelsData: store.getState().catalog.modelsData
             });
@@ -30,85 +34,47 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
 
     }
 
-    getList() {
-        debugger
-        const arrs = this.state.modelsData? this.state.modelsData : [];
-        const list = arrs.map(arr => {
-            return <div key={arr.id}>{arr.name}</div>
+    getModelList() {
+        const models = this.state.modelsData['models'];
+        const arrs = models ? models : [];
+        let modelList = '';
+        if (arrs.length === 0) {
+            return (
+                modelList
+            );
+        }
+        
+        modelList = models.map(model => {
+            return <div className="model" key={model.id}>
+                        <div className="model-img">
+                            <img src={model.imagesResize[0]} />
+                            <div className="favorite-controls">
+                                <img className="add" src={require('./img/favorite_normal.svg')} title="收藏" />
+                                <img className="added" src={require('./img/favorite_light.svg')} title="取消收藏" />
+                            </div>
+                        </div>
+                        <div className="description">
+                            <span className="name">{model.name}</span>
+                        </div>
+                    </div>
         });
 
         return (
-            list
+            modelList
         );
     }
 
     render() {
-        const list = this.getList();
+        const modelList = this.getModelList();
         return (
             <div className="catalog-model">
-                <div className="header-search">
-                    <div className="search-control">
-                        <input className="search-input" placeholder="名称" />
-                        <img src={require('./img/search.svg')} alt="" />
-                    </div>
-                    <div className="select-conditions">
-                        <div className="condition-item">
-                            <div className="name-control">
-                                <div className="name">4.0套餐</div>
-                                <span className="dot-bottom"></span>
-                                <span className="dot-top"></span>
-                            </div>
-                            <div className="items">
-                                <PerfectScrollbar>
-                                    <div className="item">5.0套餐</div>
-                                    <div className="item">4.0套餐</div>
-                                    <div className="item">3.1套餐</div>
-                                    <div className="item">3.0套餐</div>
-                                </PerfectScrollbar>
-                            </div>
-                        </div>
-
-                        <div className="condition-item">
-                            <div className="name-control">
-                                <div className="name">瓷砖</div>
-                                <span className="dot-bottom"></span>
-                                <span className="dot-top"></span>
-                            </div>
-                            <div className="items">
-                                <PerfectScrollbar>
-                                    <div className="item">瓷砖</div>
-                                    <div className="item">入户门套</div>
-                                    <div className="item">筒灯</div>
-                                    <div className="item">地板</div>
-                                </PerfectScrollbar>
-                            </div>
-                        </div>
-
-                        <div className="condition-item">
-                            <div className="name-control">
-                                <div className="name">波打线</div>
-                                <span className="dot-bottom"></span>
-                                <span className="dot-top"></span>
-                            </div>
-                            <div className="items">
-                                <PerfectScrollbar>
-                                    <div className="item">波打线</div>
-                                    <div className="item">过门石</div>
-                                    <div className="item">烟道</div>
-                                    <div className="item">石坎</div>
-                                </PerfectScrollbar>
-                            </div>
-                        </div>
-
-                        <div className="expand-conditions">
-                            <img src={require('./img/expand.svg')} className="normal" alt=""/>
-                            <img src={require('./img/expand-light.svg')} className="light" alt="" />
-                        </div>
-                    </div>
+                <HeaderSearch></HeaderSearch>
+                <div className="models-materials">
+                    <PerfectScrollbar>
+                        {modelList}
+                    </PerfectScrollbar>
                 </div>
-                <PerfectScrollbar>
-                    {list}
-                </PerfectScrollbar>
+                <Pagination></Pagination>
             </div>
         );
     }

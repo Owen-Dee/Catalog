@@ -5,7 +5,8 @@ import { CatalogContentType } from '../entity/catalogentity';
 
 const initState = {
 	catalogType: CatalogContentType.GlobalSearchMaterial,
-	modelsData: []
+	modelsData: [],
+	pageRandom: 0
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -20,6 +21,12 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 			return {
 				...state,
 				modelsData: action.payLoad
+			};
+			break;
+		case Constants.RESET_CATALOG_PAGEINDEX:
+			return {
+				...state,
+				pageRandom: action.payLoad
 			};
 			break;
 		default:

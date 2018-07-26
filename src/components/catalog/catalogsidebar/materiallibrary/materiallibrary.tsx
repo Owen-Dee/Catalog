@@ -2,7 +2,7 @@ import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
 import CatalogCategory from '../../common/catalogcategory/catalogcategory';
 import { ICatalogSidebarProps, ICatalogModelStates, CatalogSidebarType } from '../../../../entity/catalogentity';
-import CatalogService from '../../../../api/catalogservice';
+import CatalogService from '../../utils/catalogservice';
 import './materiallibrary.scss';
 
 export default class MaterialLibrary extends React.Component<ICatalogSidebarProps, ICatalogModelStates> {

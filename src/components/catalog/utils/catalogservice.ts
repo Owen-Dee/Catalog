@@ -1,52 +1,29 @@
-import axios from 'axios';
+import Service from '../../../api/service';
+import CatalogCache from './catalogcache';
 
 export default class CatalogService {
-    categoryUrl: string;
-
-    constructor() {
-        this.categoryUrl = 'http://dev-service.jtl3d.com/api/catalog/CatalogV2/';
-    }
-
+    service: any;
+    catalogCache: any;
     static _instance;
 
+    constructor() {
+        this.service = Service.getInstance();
+        this.catalogCache = CatalogCache.getInstance();
+    }
+
     getCategories(params) {
-        let url = this.categoryUrl + 'SearchCategories?' + params;
-        let method = 'get';
-        return axios({
-            url: url,
-            method: method,
-            responseType: 'json',
-        }).catch(err => {
-            console.log('request error, HTTP CODE: ', err.response.status);
-            return Promise.reject(err);
+        return this.service.getCategories(params).then((result) => {
+            return result;
+        }).catch((error) => {
+            console.error('Search Categories error:' + error);
         });
     }
 
     getCatalogModels(categoryId) {
-        let url = this.categoryUrl + 'SearchProducts' ;
-        let data = {
-            BrandId:"",
-            CatalogMenuId:categoryId,
-            CategoryId:"",
-            Color:"",
-            Facets:"{}",
-            Keywords:"",
-            Limit:100,
-            PackageId:"",
-            Skip:0,
-            Style:"",
-            Tenant:"jtljia",
-            tenantOperator:"!Eq"
-        };
-        let method = 'post';
-        return axios({
-            url: url,
-            method: method,
-            data: data,
-            responseType: 'json',
-        }).catch(err => {
-            console.log('request error, HTTP CODE: ', err.response.status);
-            return Promise.reject(err);
+        return this.service.getCatalogModels(categoryId).then((result) => {
+            return result;
+        }).catch((error) => {
+            console.error('Search Catalog Models error:' + error);
         });
     }
 

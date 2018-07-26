@@ -50,6 +50,8 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
         if (this.props.sidebarType === CatalogSidebarType.MaterialLibrary ||
             this.props.sidebarType === CatalogSidebarType.Tenant) {
             store.dispatch(Actions.changeCatalogType(CatalogContentType.CatalogModel));
+            let random = Math.random();
+            store.dispatch(Actions.resetCatalogPageIndex(random));
         }
 
         this.setState({
@@ -87,6 +89,8 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
         if (this.props.sidebarType === CatalogSidebarType.MaterialLibrary ||
             this.props.sidebarType === CatalogSidebarType.Tenant) {
             store.dispatch(Actions.changeCatalogType(CatalogContentType.CatalogModel));
+            let random = Math.random();
+            store.dispatch(Actions.resetCatalogPageIndex(random));
         }
 
         this.setState({

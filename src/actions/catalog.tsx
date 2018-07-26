@@ -2,7 +2,6 @@
  * @component actions
  * @description catalog动作和函数
  **/
-
 import * as constants from '../constants/catalog';
 import CatalogService from '../components/catalog/utils/catalogservice';
 
@@ -25,11 +24,29 @@ export interface ICatalogModels {
 	type: constants.CHANGE_CATALOG_MODELS,
 	payLoad: Array<any>
 }
-
+/**
+ * @description: 更改catalog模型数据
+ * @param modelsData : 包含了头部查询信息,模型信息,分页信息
+ */
 export function changeCatalogModels(modelsData: Array<any>): ICatalogModels {
 	return {
 		type: constants.CHANGE_CATALOG_MODELS,
 		payLoad: modelsData
+	}
+}
+
+export interface IPageIndex {
+	type: constants.RESET_CATALOG_PAGEINDEX,
+	payLoad: number
+}
+/**
+ * @description: 重置catalog分页数据
+ * @param random : 随机数
+ */
+export function resetCatalogPageIndex(random: number): IPageIndex {
+	return {
+		type: constants.RESET_CATALOG_PAGEINDEX,
+		payLoad: random
 	}
 }
 
@@ -41,7 +58,9 @@ export function getCatalogModels(categoryId: string) {
 				dispatch(changeCatalogModels([]))
 			}
 
-			const modelsData = result.data.items;
+			let modelsData = [];
+			modelsData['models'] = result.data.items;
+			modelsData['total'] = result.data.total;
 			dispatch(changeCatalogModels(modelsData));
 		}).catch(error => {
 			console.error('getCatalogModels error:' + error);
@@ -49,4 +68,4 @@ export function getCatalogModels(categoryId: string) {
 	}
 }
 
-export type All = ICatalogType | ICatalogModels;
+export type All = ICatalogType | ICatalogModels | IPageIndex;
