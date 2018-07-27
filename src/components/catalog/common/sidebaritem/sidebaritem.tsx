@@ -23,8 +23,8 @@ export default class SidebarItem extends React.Component<ISidebarItemProps, ISid
         });
     }
 
-    handleClick(sidebarType) {
-        this.props.onSidebarTypeChange(sidebarType);
+    handleClick() {
+        this.props.onSidebarTypeChange();
     }
 
     render() {
@@ -47,7 +47,7 @@ export default class SidebarItem extends React.Component<ISidebarItemProps, ISid
             <div className="sidebar-item"
                 onMouseEnter={this.mouseEnter.bind(this)}
                 onMouseLeave={this.mouseLeave.bind(this)}
-                onClick={this.handleClick.bind(this, this.props.sidebarType)}>
+                onClick={this.handleClick.bind(this)}>
                 <img src={normalImg}
                     style={normalImgStyle} />
                 <img src={activeImg}

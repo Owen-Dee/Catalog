@@ -12,7 +12,7 @@ export interface ICatalogSidebarProps {
  * @sidebarType: sidebar 类型('字符串')
  */
 export interface ICatalogSidebarStates {
-    sidebarType: string
+    sidebarType: string,
 }
 /**
  * @description: 组件MaterialLibrary/Tenant对应的state
@@ -48,12 +48,11 @@ export interface ICatalogCategoryStates {
  */
 export interface ISidebarItemProps {
     sidebarMenuName: string,
-    sidebarType: string,
     normalImg: string,
     activeImg: string,
     showCategories: boolean,
     isNotGlobalSearch: boolean,
-    onSidebarTypeChange: (val) => void,
+    onSidebarTypeChange: () => void,
 }
 /**
  * @description: SidebarItem
@@ -88,9 +87,10 @@ export interface ICatalogSubmenuStates {
  * @categories: 分类数据
  */
 export interface ICatalogCategoryProps {
-    sidebarType: string,
     showCategories: boolean,
-    categories: Array<any>
+    categories: Array<any>,
+    onChangeCategoryId: (val) => void,
+    onRef?: (val) => void
 }
 /**
  * @description: Catalog Sidebar的枚举类型

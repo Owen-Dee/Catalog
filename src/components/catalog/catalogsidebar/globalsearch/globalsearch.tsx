@@ -1,11 +1,18 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
-import { ICatalogSidebarProps, CatalogSidebarType } from '../../../../entity/catalogentity';
+import { ICatalogSidebarProps, CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
+import store from '../../../../store/index';
+import * as Actions from '../../../../actions/catalog';
 import './globalsearch.scss';
 
 export default class GlobalSearch extends React.Component<ICatalogSidebarProps, any> {
     constructor(props: ICatalogSidebarProps) {
         super(props);
+    }
+
+    handleSidebarTypeChange() {
+        this.props.onSidebarTypeChange(CatalogSidebarType.GlobalSearch);
+        store.dispatch(Actions.changeCatalogType(CatalogContentType.GlobalSearchMaterial));
     }
 
     render() {
@@ -16,9 +23,8 @@ export default class GlobalSearch extends React.Component<ICatalogSidebarProps, 
                 normalImg="./search.svg"
                 activeImg="./search_light.svg"
                 showCategories={showCategories}
-                sidebarType={CatalogSidebarType.GlobalSearch}
                 isNotGlobalSearch={false}
-                onSidebarTypeChange={this.props.onSidebarTypeChange}
+                onSidebarTypeChange={this.handleSidebarTypeChange.bind(this)}
             >
             </SidebarItem>
         );

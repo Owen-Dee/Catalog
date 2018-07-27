@@ -3,7 +3,6 @@ import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
 import HeaderSearch from '../headersearch/headersearch';
 import Pagination from '../../common/pagination/pagination';
-import * as ReactPaginate from 'react-paginate';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogmodel.scss';
@@ -19,7 +18,6 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
             modelsData: []
         };
         store.subscribe(() => {
-            debugger;
             this.setState({
                 modelsData: store.getState().catalog.modelsData
             });

@@ -1,9 +1,6 @@
 import * as React from 'react';
 import CatalogSubmenu from '../catalogsubmenu/catalogsubmenu';
-import { ICatalogCategoryProps, ICatalogCategoryStates, CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
-import store from '../../../../store/index';
-import * as Actions from '../../../../actions/catalog';
-import { getCatalogModels } from '../../../../actions/catalog';
+import { ICatalogCategoryProps, ICatalogCategoryStates } from '../../../../entity/catalogentity';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogcategory.scss';
@@ -20,15 +17,25 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
         };
     }
 
+    resetActiveMenu(activeMenuId: string, activeIndex: number) {
+        this.setState({
+            activeMenuId: activeMenuId,
+            activeIndex: activeIndex,
+        });
+    }
+
+    componentDidMount() {
+        this.props.onRef(this);
+    }
+
     getMenuList() {
         const menuList = this.props.categories.map((category, index) => {
+            let isActive = this.state.activeIndex === index;
             return <div className="item" key={category.id}
                 onMouseEnter={this.handleFirstMenuEnter.bind(this, category, index)}>
                 <div className={['first-menu-name',
-                    'menu-name',
-                    this.state.activeIndex === index
-                        ? 'active'
-                        : ''].join(' ')}
+                                'menu-name',
+                                isActive ? 'active' : ''].join(' ')}
                     onClick={this.handleFirstMenuClicked.bind(this, category, index)}>
                     {category.name}
                 </div>
@@ -47,19 +54,12 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
     }
 
     handleFirstMenuClicked(category, activeIndex) {
-        if (this.props.sidebarType === CatalogSidebarType.MaterialLibrary ||
-            this.props.sidebarType === CatalogSidebarType.Tenant) {
-            store.dispatch(Actions.changeCatalogType(CatalogContentType.CatalogModel));
-            let random = Math.random();
-            store.dispatch(Actions.resetCatalogPageIndex(random));
-        }
-
         this.setState({
             activeMenuId: category.id,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
-        store.dispatch(getCatalogModels(category.id));
+        this.props.onChangeCategoryId(category.id);
     }
 
     handleFirstMenuEnter(category, index) {
@@ -86,19 +86,12 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
     }
 
     handleClickSubmenu(categoryId, activeIndex) {
-        if (this.props.sidebarType === CatalogSidebarType.MaterialLibrary ||
-            this.props.sidebarType === CatalogSidebarType.Tenant) {
-            store.dispatch(Actions.changeCatalogType(CatalogContentType.CatalogModel));
-            let random = Math.random();
-            store.dispatch(Actions.resetCatalogPageIndex(random));
-        }
-
         this.setState({
             activeMenuId: categoryId,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
-        store.dispatch(getCatalogModels(categoryId));
+        this.props.onChangeCategoryId(categoryId);
     }
 
     render() {

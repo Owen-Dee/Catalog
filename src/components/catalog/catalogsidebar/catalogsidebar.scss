@@ -24,7 +24,7 @@
             align-items: center;
             background: $catalogMarkInfoColor;
             color: $goldColor;
-            z-index: 100;
+            z-index: 200;
         }
         .triangle-border-up {
             display: block;
@@ -91,7 +91,7 @@
                 .second-menu-name {
                     display: inline-block;
                     padding: 3px 10px;
-                    border: 1px solid #797878; 
+                    border: 1px solid #797878;
                     cursor: pointer;
                 }
                 .second-menu-name:hover {
@@ -106,7 +106,7 @@
                         cursor: pointer;
                     }
                     .third-menu-name:hover {
-                       color: $goldColor; 
+                        color: $goldColor;
                     }
                 }
             }

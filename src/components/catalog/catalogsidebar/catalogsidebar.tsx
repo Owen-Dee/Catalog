@@ -4,11 +4,8 @@ import FreeDesign from './freedesign/freedesign';
 import Tenant from './tenant/tenant';
 import MaterialLibrary from './materiallibrary/materiallibrary';
 import UserCenter from './usercenter/usercenter';
-import { ICatalogSidebarStates, CatalogSidebarType, CatalogContentType } from '../../../entity/catalogentity';
+import { ICatalogSidebarStates, CatalogSidebarType } from '../../../entity/catalogentity';
 import './catalogsidebar.scss';
-
-import store from '../../../store/index';
-import * as Actions from '../../../actions/catalog';
 
 export default class CatalogSidebar extends React.Component<any, ICatalogSidebarStates> {
     constructor(props) {
@@ -22,9 +19,6 @@ export default class CatalogSidebar extends React.Component<any, ICatalogSidebar
         this.setState({
             sidebarType: sidebarType
         });
-        if (sidebarType === CatalogSidebarType.GlobalSearch) {
-            store.dispatch(Actions.changeCatalogType(CatalogContentType.GlobalSearchMaterial));
-        }
     }
 
     render() {

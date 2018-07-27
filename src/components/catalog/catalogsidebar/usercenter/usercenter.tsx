@@ -8,6 +8,10 @@ export default class UserCenter extends React.Component<ICatalogSidebarProps, an
         super(props);
     }
 
+    handleSidebarTypeChange() {
+        this.props.onSidebarTypeChange(CatalogSidebarType.UserCenter);
+    }
+
     render() {
         let showCategories = this.props.sidebarType === CatalogSidebarType.UserCenter;
 
@@ -17,9 +21,8 @@ export default class UserCenter extends React.Component<ICatalogSidebarProps, an
                     normalImg="./user.svg"
                     activeImg="./user_light.svg"
                     showCategories={showCategories}
-                    sidebarType={CatalogSidebarType.UserCenter}
                     isNotGlobalSearch={true}
-                    onSidebarTypeChange={this.props.onSidebarTypeChange}
+                    onSidebarTypeChange={this.handleSidebarTypeChange.bind(this)}
                 >
                 </SidebarItem>
                 <div className="category-items"

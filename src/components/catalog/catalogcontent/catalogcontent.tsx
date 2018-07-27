@@ -31,7 +31,7 @@ export default class CatalogContent extends React.Component<any, CatalogContentS
     }
 
     render() {
-        let contentType = store.getState().catalog.catalogType;
+        let contentType = this.state.catalogType;
         let ContentComponent = CatalogAbstractFactory.getModule(contentType);
         return (
             <div className="catalog-content">

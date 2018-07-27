@@ -1,21 +1,18 @@
 import * as React from 'react';
-import { ICatalogSubmenuProps, ICatalogSubmenuStates} from '../../../../entity/catalogentity';
+import { ICatalogSubmenuProps } from '../../../../entity/catalogentity';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogsubmenu.scss';
 
-export default class CatalogSubmenu extends React.Component<ICatalogSubmenuProps, ICatalogSubmenuStates> {
+export default class CatalogSubmenu extends React.Component<ICatalogSubmenuProps, any> {
     constructor(props: ICatalogSubmenuProps) {
         super(props);
-        this.state = {
-        	activeMenuId: ''
-        };
     }
 
     getSubmenuList() {
         const submenuList = this.props.categories.map((category) => {
             let thirdMenuList = this.getThirdMenuList(category);
-            let isMenuActive = this.props.activeMenuId === this.state.activeMenuId && this.state.activeMenuId === category.id;
+            let isMenuActive = this.props.activeMenuId === category.id;
             return <div className="second-menu" key={category.id}>
                         <div className={['second-menu-name', 
             							 'menu-name',
@@ -36,7 +33,7 @@ export default class CatalogSubmenu extends React.Component<ICatalogSubmenuProps
 
     getThirdMenuList(category) {
         const thirdMenuList = category.categories.map((item) => {
-        	let isMenuActive = this.props.activeMenuId === this.state.activeMenuId && this.state.activeMenuId === item.id;
+        	let isMenuActive = this.props.activeMenuId === item.id;
             return <div className={['third-menu-name', 
             						'menu-name',
             						isMenuActive ? 'active' : ''].join(' ')}
@@ -52,9 +49,6 @@ export default class CatalogSubmenu extends React.Component<ICatalogSubmenuProps
     }
 
     handleSubmenuClicked(category) {
-    	this.setState({
-    		activeMenuId: category.id
-    	});
     	this.props.onSubmenuClick(category.id ,this.props.menuIndex);
     }
 

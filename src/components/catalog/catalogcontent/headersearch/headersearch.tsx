@@ -4,8 +4,10 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import './HeaderSearch.scss';
 
 export default class HeaderSearch extends React.Component<any, any> {
+    textInput: any;
     constructor(props) {
         super(props);
+        this.textInput = React.createRef();
     }
 
     componentWillMount() {
@@ -13,14 +15,18 @@ export default class HeaderSearch extends React.Component<any, any> {
     }
 
     componentDidMount() {
+        this.textInput.current.focus();
+    }
 
+    componentWillUpdate() {
+        this.textInput.current.focus();
     }
 
     render() {
         return (
             <div className="header-search">
                 <div className="search-control">
-                    <input className="search-input" placeholder="名称" />
+                    <input className="search-input" placeholder="名称" ref={this.textInput} />
                     <img src={require('./img/search.svg')} alt="" />
                 </div>
                 <div className="select-conditions">

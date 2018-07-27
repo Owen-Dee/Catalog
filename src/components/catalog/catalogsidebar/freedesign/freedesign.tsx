@@ -14,6 +14,11 @@ export default class FreeDesign extends React.Component<ICatalogSidebarProps, an
         store.dispatch(Actions.changeCatalogType(type));
     }
 
+    handleSidebarTypeChange() {
+        debugger
+        this.props.onSidebarTypeChange(CatalogSidebarType.FreeDesign);
+    }
+
     render() {
         let showCategories = this.props.sidebarType === CatalogSidebarType.FreeDesign;
 
@@ -23,9 +28,8 @@ export default class FreeDesign extends React.Component<ICatalogSidebarProps, an
                     normalImg="./design.svg"
                     activeImg="./design_light.svg"
                     showCategories={showCategories}
-                    sidebarType={CatalogSidebarType.FreeDesign}
                     isNotGlobalSearch={true}
-                    onSidebarTypeChange={this.props.onSidebarTypeChange}
+                    onSidebarTypeChange={this.handleSidebarTypeChange.bind(this)}
                 >
                 </SidebarItem>
                 <div className="category-items"
