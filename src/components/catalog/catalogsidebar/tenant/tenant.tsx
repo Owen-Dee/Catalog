@@ -53,14 +53,26 @@ export default class Tenant extends React.Component<ICatalogSidebarProps, ICatal
         //5.通过随机数的变化,重置分页数据
         let random = Math.random();
         store.dispatch(Actions.resetCatalogPageIndex(random));
-        //6.获取Catalog的模型数据进行填充
-        store.dispatch(getCatalogModels(categoryId));
+        //6.记录选中的分类id并获取Catalog的模型数据进行填充
+        store.dispatch(Actions.recordSelectedCategoryId(categoryId));
+        let params = {
+            categoryId: categoryId,
+            pageIndex: 0
+        };
+        store.dispatch(getCatalogModels(params));
     }
 
     handleChangeCategoryId(categoryId) {
+        //1.通过随机数的变化,重置分页数据
         let random = Math.random();
         store.dispatch(Actions.resetCatalogPageIndex(random));
-        store.dispatch(getCatalogModels(categoryId));
+        //2.记录选中的分类id并获取Catalog的模型数据进行填充
+        store.dispatch(Actions.recordSelectedCategoryId(categoryId));
+        let params = {
+            categoryId: categoryId,
+            pageIndex: 0
+        };
+        store.dispatch(getCatalogModels(params));
     }
 
     onRef(ref) {

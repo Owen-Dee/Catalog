@@ -50,10 +50,55 @@ export function resetCatalogPageIndex(random: number): IPageIndex {
 	}
 }
 
-export function getCatalogModels(categoryId: string) {
+export interface ICategoryId {
+	type: constants.RECORD_SELECTED_CATEGORY_ID,
+	payLoad: string
+}
+/**
+ * @description: 记录被选中的category id
+ * @param categoryId : 分类id
+ */
+export function recordSelectedCategoryId(categoryId: string): ICategoryId {
+	return {
+		type: constants.RECORD_SELECTED_CATEGORY_ID,
+		payLoad: categoryId
+	}
+}
+/**
+ * @description: 获取catalog模型数据
+ * @param categoryId : 分类id
+ */
+// export function getCatalogModels(categoryId: string) {
+// 	return (dispatch) => {
+// 		const catalogService = CatalogService.getInstance();
+// 		catalogService.getCatalogModels(categoryId).then(result => {
+// 			if (!result || !result.data.items) {
+// 				dispatch(changeCatalogModels([]))
+// 			}
+
+// 			let modelsData = [];
+// 			modelsData['models'] = result.data.items;
+// 			modelsData['total'] = result.data.total;
+// 			dispatch(changeCatalogModels(modelsData));
+// 		}).catch(error => {
+// 			console.error('getCatalogModels error:' + error);
+// 		});
+// 	}
+// }
+
+
+interface ISearchConditions {
+	categoryId: string,
+	pageIndex: number	
+}
+/**
+ * @description: 获取catalog模型数据
+ * @param params : 查询条件集合
+ */
+export function getCatalogModels(params: ISearchConditions) {
 	return (dispatch) => {
 		const catalogService = CatalogService.getInstance();
-		catalogService.getCatalogModels(categoryId).then(result => {
+		catalogService.getCatalogModels(params).then(result => {
 			if (!result || !result.data.items) {
 				dispatch(changeCatalogModels([]))
 			}
@@ -68,4 +113,7 @@ export function getCatalogModels(categoryId: string) {
 	}
 }
 
-export type All = ICatalogType | ICatalogModels | IPageIndex;
+export type All = ICatalogType 
+				| ICatalogModels 
+				| IPageIndex 
+				| ICategoryId;

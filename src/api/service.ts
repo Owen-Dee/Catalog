@@ -28,22 +28,9 @@ export default class Service{
         return this.baseApi(url, method, data);
     }
 
-    getCatalogModels(categoryId) {
+    getCatalogModels(params) {
         let url = this.categoryUrl + 'SearchProducts';
-        let data = {
-            BrandId: "",
-            CatalogMenuId: categoryId,
-            CategoryId: "",
-            Color: "",
-            Facets: "{}",
-            Keywords: "",
-            Limit: 100,
-            PackageId: "",
-            Skip: 0,
-            Style: "",
-            Tenant: "jtljia",
-            tenantOperator: "!Eq"
-        };
+        let data = params;
         let method = 'post';
         return this.baseApi(url, method, data);
     }

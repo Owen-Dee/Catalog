@@ -6,7 +6,8 @@ import { CatalogContentType } from '../entity/catalogentity';
 const initState = {
 	catalogType: CatalogContentType.GlobalSearchMaterial,
 	modelsData: [],
-	pageRandom: 0
+	pageRandom: 0,
+	categoryId: ''
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -28,6 +29,12 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 				...state,
 				pageRandom: action.payLoad
 			};
+			break;
+		case Constants.RECORD_SELECTED_CATEGORY_ID:
+			return {
+				...state,
+				categoryId: action.payLoad
+			}
 			break;
 		default:
 			break;

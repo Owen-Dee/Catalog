@@ -3,6 +3,12 @@ import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
 import * as ReactPaginate from 'react-paginate';
 import './pagination.scss';
+
+interface IPaginationProps {
+    pageCount: number,
+    onChangePageIndex: (val) => void
+}
+
 /**
  * @description: 分页组件状态
  * @forcePage: 重置选中的页数
@@ -14,8 +20,8 @@ interface IPaginationStates {
     pageRandom: number
 }
 
-export default class Pagination extends React.Component<any, IPaginationStates> {
-    constructor(props) {
+export default class Pagination extends React.Component<IPaginationProps, IPaginationStates> {
+    constructor(props: IPaginationProps) {
         super(props);
         this.state = {
             forcePage: 0,
@@ -33,19 +39,17 @@ export default class Pagination extends React.Component<any, IPaginationStates> 
         });
     }
 
-    componentWillMount() {
-        console.log('componentWillMount');
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount');
-    }
-
     changePage(pageObj) {
+        // 1.forcePage的值必须设置,如果不设置,forcePage始终是默认值0.
+        // 2.当点击其他的分类按钮时,store.getState().catalog.pageRandom的值会发生变化.
+        // 3.此时store.subscribe()会监听到pageRandom的变化,然后会重新设置pageRandom,forcePage,jumpPageIndex的值.
+        // 4.而forcePage重置后的值仍为0,没有发生改变,分页的数据便不会被重置.
         this.setState({
             jumpPageIndex: parseInt(pageObj.selected) + 1,
-            forcePage: parseInt(pageObj.selected)
+            forcePage: parseInt(pageObj.selected) 
         });
+
+        this.props.onChangePageIndex(parseInt(pageObj.selected));
     }
 
     changeJumpPage(e) {
@@ -67,6 +71,8 @@ export default class Pagination extends React.Component<any, IPaginationStates> 
             this.setState({
                 forcePage: value - 1
             });
+
+            this.props.onChangePageIndex(parseInt(e.target.value) - 1);
         }
     }
 
@@ -81,13 +87,15 @@ export default class Pagination extends React.Component<any, IPaginationStates> 
         this.setState({
             forcePage: pageIndex - 1
         });
+
+        this.props.onChangePageIndex(pageIndex - 1);
     }
 
     render() {
         return (
             <div className="pagination-container">
                 <ReactPaginate
-                    pageCount={30}
+                    pageCount={this.props.pageCount}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={1}
                     forcePage={this.state.forcePage}
