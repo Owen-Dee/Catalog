@@ -64,27 +64,6 @@ export function recordSelectedCategoryId(categoryId: string): ICategoryId {
 		payLoad: categoryId
 	}
 }
-/**
- * @description: 获取catalog模型数据
- * @param categoryId : 分类id
- */
-// export function getCatalogModels(categoryId: string) {
-// 	return (dispatch) => {
-// 		const catalogService = CatalogService.getInstance();
-// 		catalogService.getCatalogModels(categoryId).then(result => {
-// 			if (!result || !result.data.items) {
-// 				dispatch(changeCatalogModels([]))
-// 			}
-
-// 			let modelsData = [];
-// 			modelsData['models'] = result.data.items;
-// 			modelsData['total'] = result.data.total;
-// 			dispatch(changeCatalogModels(modelsData));
-// 		}).catch(error => {
-// 			console.error('getCatalogModels error:' + error);
-// 		});
-// 	}
-// }
 
 
 interface ISearchConditions {
@@ -98,14 +77,7 @@ interface ISearchConditions {
 export function getCatalogModels(params: ISearchConditions) {
 	return (dispatch) => {
 		const catalogService = CatalogService.getInstance();
-		catalogService.getCatalogModels(params).then(result => {
-			if (!result || !result.data.items) {
-				dispatch(changeCatalogModels([]))
-			}
-
-			let modelsData = [];
-			modelsData['models'] = result.data.items;
-			modelsData['total'] = result.data.total;
+		catalogService.getCatalogModels(params).then(modelsData => {
 			dispatch(changeCatalogModels(modelsData));
 		}).catch(error => {
 			console.error('getCatalogModels error:' + error);

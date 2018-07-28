@@ -44,8 +44,13 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
     }
 
     render() {
-        const models = this.state.modelsData['models'];
-        let pageCount = 30;
+        let models = this.state.modelsData['models'];
+        let pageCount = this.state.modelsData['pageCount'];
+        if (!models || !pageCount) {
+            models = [];
+            pageCount = 0;
+        }
+
         return (
             <div className="catalog-model">
                 <HeaderSearch></HeaderSearch>

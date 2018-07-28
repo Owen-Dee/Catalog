@@ -17,7 +17,9 @@ interface IPaginationProps {
 interface IPaginationStates {
     forcePage: number,
     jumpPageIndex: number,
-    pageRandom: number
+    pageRandom: number,
+    pageRange: number,
+    marginPages: number
 }
 
 export default class Pagination extends React.Component<IPaginationProps, IPaginationStates> {
@@ -26,7 +28,9 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
         this.state = {
             forcePage: 0,
             jumpPageIndex: 1,
-            pageRandom: 0
+            pageRandom: 0,
+            pageRange: 3,
+            marginPages: 1
         };
         store.subscribe(() => {
             if (store.getState().catalog.pageRandom !== this.state.pageRandom) {
@@ -92,12 +96,13 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
     }
 
     render() {
+        let paginationStyle = this.props.pageCount > 0 ? {display: 'block'} : {display: 'none'};
         return (
-            <div className="pagination-container">
+            <div className="pagination-container" style={paginationStyle}>
                 <ReactPaginate
                     pageCount={this.props.pageCount}
-                    pageRangeDisplayed={3}
-                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={this.state.pageRange}
+                    marginPagesDisplayed={this.state.marginPages}
                     forcePage={this.state.forcePage}
                     previousLabel={"<"}
                     nextLabel={">"}
