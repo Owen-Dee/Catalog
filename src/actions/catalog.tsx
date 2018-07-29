@@ -4,7 +4,7 @@
  **/
 import * as constants from '../constants/catalog';
 import CatalogService from '../components/catalog/utils/catalogservice';
-
+//=======1========
 export interface ICatalogType {
 	type: constants.CHANGE_CATALOG_TYPE,
 	payLoad: string
@@ -19,22 +19,7 @@ export function changeCatalogType(catalogType: string): ICatalogType {
 		payLoad: catalogType
 	}
 }
-
-export interface ICatalogModels {
-	type: constants.CHANGE_CATALOG_MODELS,
-	payLoad: Array<any>
-}
-/**
- * @description: 更改catalog模型数据
- * @param modelsData : 包含了头部查询信息,模型信息,分页信息
- */
-export function changeCatalogModels(modelsData: Array<any>): ICatalogModels {
-	return {
-		type: constants.CHANGE_CATALOG_MODELS,
-		payLoad: modelsData
-	}
-}
-
+//=======2========
 export interface IPageIndex {
 	type: constants.RESET_CATALOG_PAGEINDEX,
 	payLoad: number
@@ -49,7 +34,7 @@ export function resetCatalogPageIndex(random: number): IPageIndex {
 		payLoad: random
 	}
 }
-
+//=======3========
 export interface ICategoryId {
 	type: constants.RECORD_SELECTED_CATEGORY_ID,
 	payLoad: string
@@ -64,8 +49,34 @@ export function recordSelectedCategoryId(categoryId: string): ICategoryId {
 		payLoad: categoryId
 	}
 }
+//=======4========
+export interface ICatalogRequest {
+	type: constants.CATALOG_MODELS_REQUEST,
+	payLoad: boolean
+}
 
+export function changeCatalogRequestState(isFecting: boolean): ICatalogRequest {
+	return {
+		type:  constants.CATALOG_MODELS_REQUEST,
+		payLoad: isFecting
+	}
+}
 
+//=======5========
+export interface ICatalogReceive {
+	type: constants.CATALOG_MODELS_RECEIVE,
+	modelsData: Array<any>,
+	isFecting: boolean
+}
+
+export function changeCatalogReceiveState(modelsData: Array<any>, isFecting: boolean): ICatalogReceive {
+	return {
+		type:  constants.CATALOG_MODELS_RECEIVE,
+		modelsData: modelsData,
+		isFecting: isFecting
+	}
+}
+//=======6========
 interface ISearchConditions {
 	categoryId: string,
 	pageIndex: number	
@@ -76,9 +87,12 @@ interface ISearchConditions {
  */
 export function getCatalogModels(params: ISearchConditions) {
 	return (dispatch) => {
+		let isFecting = true;
+		dispatch(changeCatalogRequestState(isFecting));
 		const catalogService = CatalogService.getInstance();
 		catalogService.getCatalogModels(params).then(modelsData => {
-			dispatch(changeCatalogModels(modelsData));
+			isFecting = false;
+			dispatch(changeCatalogReceiveState(modelsData, isFecting));
 		}).catch(error => {
 			console.error('getCatalogModels error:' + error);
 		});
@@ -86,6 +100,7 @@ export function getCatalogModels(params: ISearchConditions) {
 }
 
 export type All = ICatalogType 
-				| ICatalogModels 
 				| IPageIndex 
-				| ICategoryId;
+				| ICategoryId
+				| ICatalogRequest
+				| ICatalogReceive;

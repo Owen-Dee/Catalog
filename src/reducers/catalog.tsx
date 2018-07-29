@@ -7,7 +7,8 @@ const initState = {
 	catalogType: CatalogContentType.GlobalSearchMaterial,
 	modelsData: [],
 	pageRandom: 0,
-	categoryId: ''
+	categoryId: '',
+	isFecting: false
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -17,25 +18,27 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 				...state,
 				catalogType: action.payLoad
 			};
-			break;
-		case Constants.CHANGE_CATALOG_MODELS:
-			return {
-				...state,
-				modelsData: action.payLoad
-			};
-			break;
 		case Constants.RESET_CATALOG_PAGEINDEX:
 			return {
 				...state,
 				pageRandom: action.payLoad
 			};
-			break;
 		case Constants.RECORD_SELECTED_CATEGORY_ID:
 			return {
 				...state,
 				categoryId: action.payLoad
 			}
-			break;
+		case Constants.CATALOG_MODELS_REQUEST:
+			return {
+				...state,
+				isFecting: action.payLoad
+			}
+		case Constants.CATALOG_MODELS_RECEIVE:
+			return {
+				...state,
+				modelsData: action.modelsData,
+				isFecting: action.isFecting
+			}
 		default:
 			break;
 	}
