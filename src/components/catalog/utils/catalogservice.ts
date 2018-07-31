@@ -3,7 +3,9 @@ import CatalogCache from './catalogcache';
 
 interface ISearchConditions {
     categoryId: string,
-    pageIndex: number
+    pageIndex: number,
+    tenant: string,
+    tenantOperator: string	
 }
 
 export default class CatalogService {
@@ -43,8 +45,8 @@ export default class CatalogService {
             Color: '',
             Style: '',
             Facets: '',
-            tenantOperator: 'jtljia',
-            Tenant: '!Eq',
+            tenantOperator: params.tenantOperator,
+            Tenant: params.tenant,
             Keywords: ''
         };
 

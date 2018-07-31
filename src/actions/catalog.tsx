@@ -77,9 +77,25 @@ export function changeCatalogReceiveState(modelsData: Array<any>, isFecting: boo
 	}
 }
 //=======6========
+export interface ICatalogConditions {
+	type: constants.RECORD_CATALOG_SEARCH_CONDITIONS,
+	categoryId: string,
+	tenantOperator: string
+}
+
+export function recordCatalogSearchConditions(categoryId: string, tenantOperator: string): ICatalogConditions {
+	return {
+		type: constants.RECORD_CATALOG_SEARCH_CONDITIONS,
+		categoryId: categoryId,
+		tenantOperator: tenantOperator
+	}
+}
+//=======7========
 interface ISearchConditions {
 	categoryId: string,
-	pageIndex: number	
+	pageIndex: number,
+	tenant: string,
+	tenantOperator: string	
 }
 /**
  * @description: 获取catalog模型数据
@@ -103,4 +119,5 @@ export type All = ICatalogType
 				| IPageIndex 
 				| ICategoryId
 				| ICatalogRequest
-				| ICatalogReceive;
+				| ICatalogReceive
+				| ICatalogConditions;

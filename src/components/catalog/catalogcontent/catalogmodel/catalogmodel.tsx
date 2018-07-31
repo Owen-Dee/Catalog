@@ -10,7 +10,8 @@ import './catalogmodel.scss';
 interface ICatalogModelStates {
     modelsData: Array<any>,
     categoryId: string,
-    isFecting: boolean
+    isFecting: boolean,
+    tenantOperator: string
 }
 
 export default class CatalogModel extends React.Component<any, ICatalogModelStates> {
@@ -20,7 +21,8 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
         this.state = {
             modelsData: [],
             categoryId: '',
-            isFecting: true
+            isFecting: true,
+            tenantOperator: 'Eq'
         };
         this.pageIndex = 0;
         store.subscribe(() => {
@@ -28,6 +30,7 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
                 modelsData: store.getState().catalog.modelsData,
                 categoryId: store.getState().catalog.categoryId,
                 isFecting: store.getState().catalog.isFecting,
+                tenantOperator: store.getState().catalog.tenantOperator
             });
         });
     }
@@ -38,9 +41,12 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
     }
 
     getCatalogModels() {
+        const tenant = 'jtljia';
         let params = {
             categoryId: this.state.categoryId,
-            pageIndex: this.pageIndex
+            pageIndex: this.pageIndex,
+            tenant: tenant,
+            tenantOperator: this.state.tenantOperator
         };
 
         store.dispatch(getCatalogModels(params));
@@ -49,10 +55,6 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
     render() {
         let models = this.state.modelsData['models'];
         let pageCount = this.state.modelsData['pageCount'];
-        if (!models || !pageCount) {
-            models = [];
-            pageCount = 0;
-        }
         let loadingStyle = this.state.isFecting ? 'loading-active' : 'loading-unActive';
 
         return (

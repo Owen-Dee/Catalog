@@ -54,10 +54,13 @@ export default class Tenant extends React.Component<ICatalogSidebarProps, ICatal
         let random = Math.random();
         store.dispatch(Actions.resetCatalogPageIndex(random));
         //6.记录选中的分类id并获取Catalog的模型数据进行填充
-        store.dispatch(Actions.recordSelectedCategoryId(categoryId));
+        const tenant = 'jtljia', tenantOperator = 'Eq';
+        store.dispatch(Actions.recordCatalogSearchConditions(categoryId, tenantOperator));
         let params = {
             categoryId: categoryId,
-            pageIndex: 0
+            pageIndex: 0,
+            tenant: tenant,
+            tenantOperator: tenantOperator
         };
         store.dispatch(getCatalogModels(params));
     }
@@ -67,10 +70,13 @@ export default class Tenant extends React.Component<ICatalogSidebarProps, ICatal
         let random = Math.random();
         store.dispatch(Actions.resetCatalogPageIndex(random));
         //2.记录选中的分类id并获取Catalog的模型数据进行填充
-        store.dispatch(Actions.recordSelectedCategoryId(categoryId));
+        const tenant = 'jtljia', tenantOperator = 'Eq';
+        store.dispatch(Actions.recordCatalogSearchConditions(categoryId, tenantOperator));
         let params = {
             categoryId: categoryId,
-            pageIndex: 0
+            pageIndex: 0,
+            tenant: tenant,
+            tenantOperator: tenantOperator
         };
         store.dispatch(getCatalogModels(params));
     }

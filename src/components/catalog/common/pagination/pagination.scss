@@ -52,7 +52,6 @@
             cursor: pointer;
             line-height: 40px;
             .box-area {
-                display: none;
                 position: absolute;
                 top: -48px;
                 right: 0px;
@@ -105,9 +104,6 @@
         .jump-container:hover {
             .title {
                 color: $goldColor;
-            }
-            .box-area {
-                display: flex;
             }
         }
     }

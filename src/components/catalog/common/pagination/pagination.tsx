@@ -4,6 +4,11 @@ import * as Actions from '../../../../actions/catalog';
 import * as ReactPaginate from 'react-paginate';
 import './pagination.scss';
 
+/**
+ * @description: 分页组件属性
+ * @pageCount: 页数
+ * @onChangePageIndex: 将页数变化的值传递给父组件
+ */
 interface IPaginationProps {
     pageCount: number,
     onChangePageIndex: (val) => void
@@ -12,10 +17,15 @@ interface IPaginationProps {
 /**
  * @description: 分页组件状态
  * @forcePage: 重置选中的页数
+ * @showJumpPage: 是否显示跳转页面
  * @jumpPageIndex: 记录跳转的页面
+ * @pageRandom: 页面重置的随机数
+ * @pageRange: The range of pages displayed.
+ * @marginPages: The number of pages to display for margins.
  */
 interface IPaginationStates {
     forcePage: number,
+    showJumpPage: boolean,
     jumpPageIndex: number,
     pageRandom: number,
     pageRange: number,
@@ -27,6 +37,7 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
         super(props);
         this.state = {
             forcePage: 0,
+            showJumpPage: false,
             jumpPageIndex: 1,
             pageRandom: 0,
             pageRange: 3,
@@ -41,6 +52,18 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
                 });
             }
         });
+    }
+
+    handleMouseEnter() {
+        this.setState({
+            showJumpPage: true
+        });
+    }
+
+    handleMouseLeave() {
+         this.setState({
+            showJumpPage: false
+        });   
     }
 
     changePage(pageObj) {
@@ -68,15 +91,24 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
             let value;
             if (isNaN(parseInt(e.target.value)) || parseInt(e.target.value) <= 0) {
                 value = 1
+                this.setState({
+                    jumpPageIndex: value
+                });
+            } else if (parseInt(e.target.value) > this.props.pageCount) {
+                value = this.props.pageCount;
+                this.setState({
+                    jumpPageIndex: value
+                });
             } else {
                 value = parseInt(e.target.value);
             }
 
             this.setState({
-                forcePage: value - 1
+                forcePage: value - 1,
+                showJumpPage: false
             });
 
-            this.props.onChangePageIndex(parseInt(e.target.value) - 1);
+            this.props.onChangePageIndex(value - 1);
         }
     }
 
@@ -84,19 +116,30 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
         let pageIndex;
         if (isNaN(Number(this.state.jumpPageIndex)) || Number(this.state.jumpPageIndex) <= 0) {
             pageIndex = 1
+            this.setState({
+                jumpPageIndex: pageIndex
+            });
+        } else if (Number(this.state.jumpPageIndex) > this.props.pageCount) {
+            pageIndex = this.props.pageCount;
+            this.setState({
+                jumpPageIndex: pageIndex
+            });
         } else {
             pageIndex = Number(this.state.jumpPageIndex);
         }
         
         this.setState({
-            forcePage: pageIndex - 1
+            forcePage: pageIndex - 1,
+            showJumpPage: false
         });
 
         this.props.onChangePageIndex(pageIndex - 1);
     }
 
     render() {
-        let paginationStyle = this.props.pageCount > 0 ? {display: 'block'} : {display: 'none'};
+        let paginationStyle = this.props.pageCount && this.props.pageCount > 0 ? {display: 'block'} : {display: 'none'};
+        let jumpPageStyle = this.state.showJumpPage ? {display: 'block'} : {display: 'none'};
+
         return (
             <div className="pagination-container" style={paginationStyle}>
                 <ReactPaginate
@@ -115,8 +158,8 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
                     onPageChange={this.changePage.bind(this)}>
                 </ReactPaginate>
                 <div className="jump-container">
-                    <span className="title">跳至</span>
-                    <div className="box-area">
+                    <span className="title" onMouseEnter={this.handleMouseEnter.bind(this)}>跳至</span>
+                    <div className="box-area" style={jumpPageStyle} onMouseLeave={this.handleMouseLeave.bind(this)}>
                         <div className="jump-page">
                             <div className="page-info">
                                 <input type="text" className="input-control" 

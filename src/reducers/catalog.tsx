@@ -8,7 +8,8 @@ const initState = {
 	modelsData: [],
 	pageRandom: 0,
 	categoryId: '',
-	isFecting: false
+	isFecting: false,
+	tenantOperator: 'Eq'
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -38,6 +39,12 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 				...state,
 				modelsData: action.modelsData,
 				isFecting: action.isFecting
+			}
+		case Constants.RECORD_CATALOG_SEARCH_CONDITIONS:
+			return {
+				...state,
+				categoryId: action.categoryId,
+				tenantOperator: action.tenantOperator
 			}
 		default:
 			break;
