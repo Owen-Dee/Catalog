@@ -15,7 +15,6 @@ export default class FreeDesign extends React.Component<ICatalogSidebarProps, an
     }
 
     handleSidebarTypeChange() {
-        debugger
         this.props.onSidebarTypeChange(CatalogSidebarType.FreeDesign);
     }
 

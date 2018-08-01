@@ -8,7 +8,7 @@ const initState = {
 	modelsData: [],
 	pageRandom: 0,
 	categoryId: '',
-	isFecting: false,
+    isFetching: false,
 	tenantOperator: 'Eq'
 };
 
@@ -32,13 +32,13 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 		case Constants.CATALOG_MODELS_REQUEST:
 			return {
 				...state,
-				isFecting: action.payLoad
+                isFetching: action.payLoad
 			}
 		case Constants.CATALOG_MODELS_RECEIVE:
 			return {
 				...state,
 				modelsData: action.modelsData,
-				isFecting: action.isFecting
+                isFetching: action.isFetching
 			}
 		case Constants.RECORD_CATALOG_SEARCH_CONDITIONS:
 			return {

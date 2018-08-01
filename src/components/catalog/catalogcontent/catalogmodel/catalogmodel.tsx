@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactLoading from 'react-loading';
 import store from '../../../../store/index';
 import HeaderSearch from '../headersearch/headersearch';
-import ModelMaterial from '../modelmaterial/modelmaterial';
+import ModelMaterials from '../modelmaterials/modelmaterials';
 import Pagination from '../../common/pagination/pagination';
 import { getCatalogModels } from '../../../../actions/catalog';
 import './catalogmodel.scss';
@@ -10,7 +10,7 @@ import './catalogmodel.scss';
 interface ICatalogModelStates {
     modelsData: Array<any>,
     categoryId: string,
-    isFecting: boolean,
+    isFetching: boolean,
     tenantOperator: string
 }
 
@@ -21,7 +21,7 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
         this.state = {
             modelsData: [],
             categoryId: '',
-            isFecting: true,
+            isFetching: true,
             tenantOperator: 'Eq'
         };
         this.pageIndex = 0;
@@ -29,7 +29,7 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
             this.setState({
                 modelsData: store.getState().catalog.modelsData,
                 categoryId: store.getState().catalog.categoryId,
-                isFecting: store.getState().catalog.isFecting,
+                isFetching: store.getState().catalog.isFetching,
                 tenantOperator: store.getState().catalog.tenantOperator
             });
         });
@@ -55,12 +55,12 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
     render() {
         let models = this.state.modelsData['models'];
         let pageCount = this.state.modelsData['pageCount'];
-        let loadingStyle = this.state.isFecting ? 'loading-active' : 'loading-unActive';
+        let loadingStyle = this.state.isFetching ? 'loading-active' : 'loading-unActive';
 
         return (
             <div className="catalog-model">
                 <HeaderSearch></HeaderSearch>
-                <ModelMaterial models={models}></ModelMaterial>
+                <ModelMaterials models={models}></ModelMaterials>
                 <Pagination pageCount={pageCount}
                     onChangePageIndex={this.handleChangePageIndex.bind(this)}>
                 </Pagination>

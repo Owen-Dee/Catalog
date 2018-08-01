@@ -55,10 +55,10 @@ export interface ICatalogRequest {
 	payLoad: boolean
 }
 
-export function changeCatalogRequestState(isFecting: boolean): ICatalogRequest {
+export function changeCatalogRequestState(isFetching: boolean): ICatalogRequest {
 	return {
 		type:  constants.CATALOG_MODELS_REQUEST,
-		payLoad: isFecting
+		payLoad: isFetching
 	}
 }
 
@@ -66,14 +66,14 @@ export function changeCatalogRequestState(isFecting: boolean): ICatalogRequest {
 export interface ICatalogReceive {
 	type: constants.CATALOG_MODELS_RECEIVE,
 	modelsData: Array<any>,
-	isFecting: boolean
+    isFetching: boolean
 }
 
-export function changeCatalogReceiveState(modelsData: Array<any>, isFecting: boolean): ICatalogReceive {
+export function changeCatalogReceiveState(modelsData: Array<any>, isFetching: boolean): ICatalogReceive {
 	return {
 		type:  constants.CATALOG_MODELS_RECEIVE,
 		modelsData: modelsData,
-		isFecting: isFecting
+        isFetching: isFetching
 	}
 }
 //=======6========
@@ -103,12 +103,12 @@ interface ISearchConditions {
  */
 export function getCatalogModels(params: ISearchConditions) {
 	return (dispatch) => {
-		let isFecting = true;
-		dispatch(changeCatalogRequestState(isFecting));
+		let isFetching = true;
+		dispatch(changeCatalogRequestState(isFetching));
 		const catalogService = CatalogService.getInstance();
 		catalogService.getCatalogModels(params).then(modelsData => {
-			isFecting = false;
-			dispatch(changeCatalogReceiveState(modelsData, isFecting));
+            isFetching = false;
+			dispatch(changeCatalogReceiveState(modelsData, isFetching));
 		}).catch(error => {
 			console.error('getCatalogModels error:' + error);
 		});
