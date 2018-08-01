@@ -9,8 +9,10 @@ interface ICatalogModelProps {
 }
 
 export default class ModelMaterial extends React.Component<ICatalogModelProps, any> {
+    private _scrollRef: any;
     constructor(props: ICatalogModelProps) {
         super(props);
+        this._scrollRef = null;
     }
 
     handleModels() {
@@ -53,11 +55,19 @@ export default class ModelMaterial extends React.Component<ICatalogModelProps, a
         );
     }
 
+    updateScrollbar(e) {
+        this._scrollRef = e;
+    }
+
+    componentWillUpdate() {
+        this._scrollRef.scrollTop  = 0;
+    }
+
     render() {
         const modelList = this.getModelList();
         return (
             <div className="models-materials">
-                <PerfectScrollbar>
+                <PerfectScrollbar containerRef={this.updateScrollbar.bind(this)}>
                     {modelList}
                 </PerfectScrollbar>
             </div>
