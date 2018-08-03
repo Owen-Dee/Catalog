@@ -2,11 +2,17 @@ import * as React from 'react';
 import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
 import './modelitem.scss';
-
+/**
+ * @description:每个模型组件对应的属性
+ * @model:单个模型数据
+ */
 interface IModelItemProps {
     model: any 
 }
-
+/**
+ * @description:每个模型组件对应的states
+ * @loading:图片加载完成前的loading
+ */
 interface IModelItemStates {
     loading: boolean
 }

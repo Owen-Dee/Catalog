@@ -4,11 +4,15 @@ let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './modelmaterials.scss';
 
+/**
+ * @description：ModelMaterials对应的属性
+ * @models:模型数据集合
+ */
 interface ICatalogModelProps {
     models: Array<any>
 }
 
-export default class ModelMaterial extends React.Component<ICatalogModelProps, any> {
+export default class ModelMaterials extends React.Component<ICatalogModelProps, any> {
     private _scrollRef: any;
     constructor(props: ICatalogModelProps) {
         super(props);

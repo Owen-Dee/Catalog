@@ -6,7 +6,13 @@ import ModelMaterials from '../modelmaterials/modelmaterials';
 import Pagination from '../../common/pagination/pagination';
 import { getCatalogModels } from '../../../../actions/catalog';
 import './catalogmodel.scss';
-
+/**
+ * @description:catalog模型材质组件对应的states
+ * @modelsData:模型数据
+ * @categoryId:分类id
+ * @isFetching:是否向服务获取数据
+ * @tenantOperator: 记录是tenant的数据,还是素材库的数据
+ */
 interface ICatalogModelStates {
     modelsData: Array<any>,
     categoryId: string,

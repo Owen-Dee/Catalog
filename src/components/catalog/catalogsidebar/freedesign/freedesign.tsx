@@ -1,16 +1,30 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
-import { ICatalogSidebarProps, CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity'
+import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity'
 import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
 import './freedesign.scss';
 
+/**
+ * @description: 组件FreeDesign对应的属性
+ * @sidebarType: sidebar 类型
+ * @onSidebarTypeChange: 监听sidebar 类型的改变
+ */
+interface IFreeDesignProps {
+    sidebarType: string,
+    onSidebarTypeChange: (val) => void,
+}
+
+/**
+ * @description: 自由设计组件对应的states
+ * @type: 记录当前category的类型
+ */
 interface IFreeDesignStates {
     type: string
 }
 
-export default class FreeDesign extends React.Component<ICatalogSidebarProps, IFreeDesignStates> {
-    constructor(props: ICatalogSidebarProps) {
+export default class FreeDesign extends React.Component<IFreeDesignProps, IFreeDesignStates> {
+    constructor(props: IFreeDesignProps) {
         super(props);
         this.state = {
             type: CatalogContentType.HouseDesign

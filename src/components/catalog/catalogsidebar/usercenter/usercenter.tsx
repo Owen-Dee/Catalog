@@ -1,17 +1,28 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
-import { ICatalogSidebarProps, CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
+import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
 import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
 import './usercenter.scss';
-
-
+/**
+ * @description: 组件UserCenter对应的属性
+ * @sidebarType: sidebar 类型
+ * @onSidebarTypeChange: 监听sidebar 类型的改变
+ */
+interface IUserCenterProps {
+    sidebarType: string,
+    onSidebarTypeChange: (val) => void,
+}
+/**
+ * @description: 组件UserCenter对应的states
+ * @type: 记录当前category的类型
+ */
 interface IUserCenterStates {
     type: string
 }
 
-export default class UserCenter extends React.Component<ICatalogSidebarProps, IUserCenterStates> {
-    constructor(props) {
+export default class UserCenter extends React.Component<IUserCenterProps, IUserCenterStates> {
+    constructor(props: IUserCenterProps) {
         super(props);
         this.state = {
             type: CatalogContentType.UserCollection

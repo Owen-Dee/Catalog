@@ -1,12 +1,22 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
-import { ICatalogSidebarProps, CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
+import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
 import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
 import './globalsearch.scss';
 
-export default class GlobalSearch extends React.Component<ICatalogSidebarProps, any> {
-    constructor(props: ICatalogSidebarProps) {
+/**
+ * @description: 组件GlobalSearch对应的属性
+ * @sidebarType: sidebar 类型
+ * @onSidebarTypeChange: 监听sidebar 类型的改变
+ */
+interface IGlobalSearchProps {
+    sidebarType: string,
+    onSidebarTypeChange: (val) => void,
+}
+
+export default class GlobalSearch extends React.Component<IGlobalSearchProps, any> {
+    constructor(props: IGlobalSearchProps) {
         super(props);
     }
 

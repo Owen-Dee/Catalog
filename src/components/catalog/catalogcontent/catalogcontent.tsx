@@ -2,7 +2,10 @@ import * as React from 'react';
 import store from '../../../store/index';
 import CatalogAbstractFactory from '../utils/catalogabstractfactory';
 import './catalogcontent.scss';
-
+/**
+ * @description:CatalogContent对应的states
+ * @catalogType: 需要显示的catalog内容
+ */
 interface CatalogContentStates {
     catalogType: string
 }

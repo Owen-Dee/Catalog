@@ -1,9 +1,21 @@
 import * as React from 'react';
-import { ICatalogSubmenuProps } from '../../../../entity/catalogentity';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogsubmenu.scss';
 
+/**
+ * @description: ICatalogSubmenuProps: catalog二级和多级菜单对应的属性
+ * @menuIndex: 鼠标放在按钮上的激活状态
+ * @categories: 二级菜单对应的数据
+ * @submenuOffsetTop: 二级菜单对应的top值
+ */
+export interface ICatalogSubmenuProps {
+    categories: Array<any>,
+    submenuOffsetTop: string,
+    activeMenuId: string,
+    menuIndex: number,
+    onSubmenuClick: (val1, val2) => void
+}
 export default class CatalogSubmenu extends React.Component<ICatalogSubmenuProps, any> {
     constructor(props: ICatalogSubmenuProps) {
         super(props);

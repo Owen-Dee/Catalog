@@ -3,15 +3,31 @@ import SidebarItem from '../../common/sidebaritem/sidebaritem';
 import CatalogCategory from '../../common/catalogcategory/catalogcategory';
 import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
-import { ICatalogSidebarProps, ICatalogModelStates, CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
+import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
 import { getCatalogModels } from '../../../../actions/catalog';
 import CatalogService from '../../utils/catalogservice';
 import './materiallibrary.scss';
+/**
+ * @description: 组件MaterialLibrary对应的属性
+ * @sidebarType: sidebar 类型
+ * @onSidebarTypeChange: 监听sidebar 类型的改变
+ */
+interface IMaterialLibraryProps {
+    sidebarType: string,
+    onSidebarTypeChange: (val) => void,
+}
+/**
+ * @description: 组件MaterialLibrary对应的state
+ * @sidebarType: sidebar 类型('字符串')
+ */
+interface IMaterialLibraryStates {
+    categories: Array<any>
+}
 
-export default class MaterialLibrary extends React.Component<ICatalogSidebarProps, ICatalogModelStates> {
+export default class MaterialLibrary extends React.Component<IMaterialLibraryProps, IMaterialLibraryStates> {
     //保存子组件,用来调用子组件中的方法
     childComponet: any;
-    constructor(props: ICatalogSidebarProps) {
+    constructor(props: IMaterialLibraryProps) {
         super(props);
         this.state = {
             categories: [],

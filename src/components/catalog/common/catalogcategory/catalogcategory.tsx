@@ -1,9 +1,35 @@
 import * as React from 'react';
 import CatalogSubmenu from '../catalogsubmenu/catalogsubmenu';
-import { ICatalogCategoryProps, ICatalogCategoryStates } from '../../../../entity/catalogentity';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogcategory.scss';
+
+/**
+ * @description: catalog模型的分类属性
+ * @showCategories: 是否显示下拉分类
+ * @categories: 分类数据
+ */
+export interface ICatalogCategoryProps {
+    showCategories: boolean,
+    categories: Array<any>,
+    onChangeCategoryId: (val) => void,
+    onRef?: (val) => void
+}
+/**
+ * @description: 后台接口获取的category分类,涉及的状态
+ * @activeMenuId: 按钮被点击后,记录category id
+ * @activeIndex: 按钮被点击激活状态
+ * @menuIndex: 鼠标放在按钮上的激活状态
+ * @categories: 二级菜单对应的数据
+ * @submenuOffsetTop: 二级菜单对应的top值
+ */
+export interface ICatalogCategoryStates {
+    activeMenuId: string,
+    activeIndex: number,
+    menuIndex: number,
+    categories: Array<any>,
+    submenuOffsetTop: string
+}
 
 export default class CatalogCategory extends React.Component<ICatalogCategoryProps, ICatalogCategoryStates> {
     constructor(props: ICatalogCategoryProps) {

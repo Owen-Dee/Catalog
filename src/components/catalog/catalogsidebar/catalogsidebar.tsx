@@ -4,8 +4,16 @@ import FreeDesign from './freedesign/freedesign';
 import Tenant from './tenant/tenant';
 import MaterialLibrary from './materiallibrary/materiallibrary';
 import UserCenter from './usercenter/usercenter';
-import { ICatalogSidebarStates, CatalogSidebarType } from '../../../entity/catalogentity';
+import { CatalogSidebarType } from '../../../entity/catalogentity';
 import './catalogsidebar.scss';
+
+/**
+ * @description: 组件CatalogSidebar对应的state
+ * @sidebarType: sidebar 类型('字符串')
+ */
+interface ICatalogSidebarStates {
+    sidebarType: string,
+}
 
 export default class CatalogSidebar extends React.Component<any, ICatalogSidebarStates> {
     constructor(props) {

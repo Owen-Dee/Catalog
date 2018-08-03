@@ -1,6 +1,5 @@
 import * as React from 'react';
 import store from '../../../../store/index';
-import * as Actions from '../../../../actions/catalog';
 import * as ReactPaginate from 'react-paginate';
 import './pagination.scss';
 
