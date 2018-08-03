@@ -113,10 +113,16 @@ export enum CatalogSidebarType {
  * @HouseDesign: 户型设计
  * @Hydropower: 水电设计
  * @CatalogModel: catalog 模型
+ * @UserCollection: 我的收藏
+ * @UserUsed: 我的使用
+ * @UserUploaded: 我的上传
  */
 export enum CatalogContentType {
     GlobalSearchMaterial = 'GlobalSearchMaterial',
     HouseDesign = 'HouseDesign',
     Hydropower = 'Hydropower',
     CatalogModel = 'CatalogModel',
+    UserCollection = 'UserCollection',
+    UserUsed = 'UserUsed',
+    UserUploaded = 'UserUploaded'
 }

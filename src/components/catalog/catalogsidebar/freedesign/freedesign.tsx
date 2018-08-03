@@ -5,17 +5,28 @@ import store from '../../../../store/index';
 import * as Actions from '../../../../actions/catalog';
 import './freedesign.scss';
 
-export default class FreeDesign extends React.Component<ICatalogSidebarProps, any> {
+interface IFreeDesignStates {
+    type: string
+}
+
+export default class FreeDesign extends React.Component<ICatalogSidebarProps, IFreeDesignStates> {
     constructor(props: ICatalogSidebarProps) {
         super(props);
+        this.state = {
+            type: CatalogContentType.HouseDesign
+        };
     }
 
     changeCatalogType(type: string) {
         store.dispatch(Actions.changeCatalogType(type));
+        this.setState({
+            type: type
+        });
     }
 
     handleSidebarTypeChange() {
         this.props.onSidebarTypeChange(CatalogSidebarType.FreeDesign);
+        this.changeCatalogType(CatalogContentType.HouseDesign);
     }
 
     render() {
@@ -33,10 +44,12 @@ export default class FreeDesign extends React.Component<ICatalogSidebarProps, an
                 </SidebarItem>
                 <div className="category-items"
                     style={showCategories ? { display: 'block' } : { display: 'none' }}>
-                    <div className="item" onClick={this.changeCatalogType.bind(this, CatalogContentType.HouseDesign)}>
+                    <div className={['item', this.state.type === CatalogContentType.HouseDesign ? 'active' : ''].join(' ')}
+                        onClick={this.changeCatalogType.bind(this, CatalogContentType.HouseDesign)}>
                         <div className="first-menu-name menu-name">户型</div>
                     </div>
-                    <div className="item" onClick={this.changeCatalogType.bind(this, CatalogContentType.Hydropower)}>
+                    <div className={['item', this.state.type === CatalogContentType.Hydropower ? 'active' : ''].join(' ')} 
+                        onClick={this.changeCatalogType.bind(this, CatalogContentType.Hydropower)}>
                         <div className="first-menu-name menu-name">水电</div>
                     </div>
 	            </div>
