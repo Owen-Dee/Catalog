@@ -22,6 +22,7 @@ interface ICatalogModelStates {
 
 export default class CatalogModel extends React.Component<any, ICatalogModelStates> {
     pageIndex: number;
+    unsubscribe: any;
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +32,7 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
             tenantOperator: 'Eq'
         };
         this.pageIndex = 0;
-        store.subscribe(() => {
+        this.unsubscribe = store.subscribe(() => {
             this.setState({
                 modelsData: store.getState().catalog.modelsData,
                 categoryId: store.getState().catalog.categoryId,
@@ -39,6 +40,10 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
                 tenantOperator: store.getState().catalog.tenantOperator
             });
         });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe(); // 解除监听。
     }
 
     handleChangePageIndex(pageIndex: number) {

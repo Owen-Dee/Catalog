@@ -11,26 +11,21 @@ interface CatalogContentStates {
 }
 
 export default class CatalogContent extends React.Component<any, CatalogContentStates> {
+    unsubscribe: any;
     constructor(props) {
         super(props);
         this.state = {
             catalogType: store.getState().catalog.catalogType
         };
-        store.subscribe(() => {
+        this.unsubscribe = store.subscribe(() => {
             this.setState({
                 catalogType: store.getState().catalog.catalogType
             });
         });
     }
 
-    componentWillMount() {
-        let name = store.getState().catalog.catalogType;
-        console.log('CatalogContent componentWillMount:' + name);
-    }
-
-    componentDidUpdate() {
-        let name = store.getState().catalog.catalogType;
-        console.log('CatalogContent componentDidUpdate:' + name);
+    componentWillUnmount() {
+        this.unsubscribe(); // 解除监听。
     }
 
     render() {

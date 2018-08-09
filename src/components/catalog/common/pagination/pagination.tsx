@@ -32,6 +32,7 @@ interface IPaginationStates {
 }
 
 export default class Pagination extends React.Component<IPaginationProps, IPaginationStates> {
+    unsubscribe: any;
     constructor(props: IPaginationProps) {
         super(props);
         this.state = {
@@ -42,7 +43,7 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
             pageRange: 3,
             marginPages: 1
         };
-        store.subscribe(() => {
+        this.unsubscribe = store.subscribe(() => {
             if (store.getState().catalog.pageRandom !== this.state.pageRandom) {
                 this.setState({
                     pageRandom: store.getState().catalog.pageRandom,
@@ -51,6 +52,10 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
                 });
             }
         });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe(); // 解除监听。
     }
 
     handleMouseEnter() {
