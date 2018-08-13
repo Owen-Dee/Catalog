@@ -114,7 +114,7 @@
                         display: block;
                     }
                 }
-                .expand-conditions {
+                .expand-conditions-icon {
                     cursor: pointer;
                     display: flex;
                     width: 20px;
@@ -133,7 +133,7 @@
                         height: 12px;
                     }
                 }
-                .expand-conditions:hover {
+                .expand-conditions-icon:hover {
                     .normal {
                         display: none;
                     }

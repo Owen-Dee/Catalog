@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ExpandConditions from '../../common/expandconditions/expandconditions';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './HeaderSearch.scss';
@@ -78,11 +79,12 @@ export default class HeaderSearch extends React.Component<any, any> {
                         </div>
                     </div>
 
-                    <div className="expand-conditions">
+                    <div className="expand-conditions-icon">
                         <img src={require('./img/expand.svg')} className="normal" alt=""/>
                         <img src={require('./img/expand-light.svg')} className="light" alt="" />
                     </div>
                 </div>
+                <ExpandConditions></ExpandConditions>
             </div>
         );
     }
