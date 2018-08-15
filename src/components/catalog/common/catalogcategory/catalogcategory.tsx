@@ -1,6 +1,8 @@
 import * as React from 'react';
 import CatalogSubmenu from '../catalogsubmenu/catalogsubmenu';
 let PerfectScrollbar = require('react-perfect-scrollbar');
+import store from '../../../../store/index';
+import * as Actions from '../../../../actions/catalog';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogcategory.scss';
 
@@ -12,7 +14,7 @@ import './catalogcategory.scss';
 export interface ICatalogCategoryProps {
     showCategories: boolean,
     categories: Array<any>,
-    onChangeCategoryId: (val) => void,
+    onChangeCategoryId: (val1, val2?) => void,
     onRef?: (val) => void
 }
 /**
@@ -85,7 +87,8 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
             activeIndex: activeIndex,
             menuIndex: -1,
         });
-        this.props.onChangeCategoryId(category.id);
+        let secondCategories = category.categories ? category.categories : [];
+        this.props.onChangeCategoryId(category.id, [...secondCategories]);
     }
 
     handleFirstMenuEnter(category, index) {
@@ -111,13 +114,15 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
         });
     }
 
-    handleClickSubmenu(categoryId, activeIndex) {
+    handleClickSubmenu(categoryId: string, activeIndex: number) {
         this.setState({
             activeMenuId: categoryId,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
-        this.props.onChangeCategoryId(categoryId);
+        let activeCategory = this.props.categories[activeIndex];
+        let secondCategories = activeCategory.categories ? activeCategory.categories : [];
+        this.props.onChangeCategoryId(categoryId, [...secondCategories]);
     }
 
     render() {

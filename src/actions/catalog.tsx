@@ -91,6 +91,19 @@ export function recordCatalogSearchConditions(categoryId: string, tenantOperator
 	}
 }
 //=======7========
+export interface ISecondCategories {
+	type: constants.RECORD_SECOND_CATEGORIES,
+	payLoad: Array<any>
+}
+
+export function recordSecondCategories(categories: Array<any>): ISecondCategories {
+	return {
+		type: constants.RECORD_SECOND_CATEGORIES,
+		payLoad: categories
+	}
+}
+
+//=======8========
 interface ISearchConditions {
 	categoryId: string,
 	pageIndex: number,
@@ -120,4 +133,5 @@ export type All = ICatalogType
 				| ICategoryId
 				| ICatalogRequest
 				| ICatalogReceive
-				| ICatalogConditions;
+				| ICatalogConditions
+				| ISecondCategories;

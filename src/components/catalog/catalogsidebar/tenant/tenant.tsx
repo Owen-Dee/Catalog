@@ -81,13 +81,15 @@ export default class Tenant extends React.Component<ITenantProps, ITenantStates>
         store.dispatch(getCatalogModels(params));
     }
 
-    handleChangeCategoryId(categoryId) {
+    handleChangeCategoryId(categoryId: string, secondCategories: Array<any>) {
         //1.通过随机数的变化,重置分页数据
         let random = Math.random();
         store.dispatch(Actions.resetCatalogPageIndex(random));
         //2.记录选中的分类id并获取Catalog的模型数据进行填充
+        // 并且记录category第二级之后的menu tree
         const tenant = 'jtljia', tenantOperator = 'Eq';
         store.dispatch(Actions.recordCatalogSearchConditions(categoryId, tenantOperator));
+        store.dispatch(Actions.recordSecondCategories(secondCategories));
         let params = {
             categoryId: categoryId,
             pageIndex: 0,

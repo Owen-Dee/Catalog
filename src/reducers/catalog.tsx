@@ -9,7 +9,8 @@ const initState = {
 	pageRandom: 0,
 	categoryId: '',
     isFetching: false,
-	tenantOperator: 'Eq'
+	tenantOperator: 'Eq',
+	secondCategories: []
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -45,6 +46,11 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 				...state,
 				categoryId: action.categoryId,
 				tenantOperator: action.tenantOperator
+			}
+		case Constants.RECORD_SECOND_CATEGORIES:
+			return {
+				...state,
+				secondCategories: action.payLoad
 			}
 		default:
 			break;

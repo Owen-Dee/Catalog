@@ -15,6 +15,7 @@
             line-height: 16px;
             padding-left: 10px;
             border-left: 2px solid $goldColor;
+            font-weight: bolder;
         }
         .split-line {
             width: 100%;
@@ -22,7 +23,7 @@
             background: #9f9f9f;
             margin-top: 2px;
         }
-        .style-items {
+        .items {
             .item {
                 display: inline-block;
                 padding: 5px 10px;
