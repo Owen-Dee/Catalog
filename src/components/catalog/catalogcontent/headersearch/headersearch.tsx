@@ -26,29 +26,17 @@ export default class HeaderSearch extends React.Component<any, IHeaderSearchStat
             secondCategories: [],
             thirdCategories: []
         };
-        // this.unsubscribe = store.subscribe(() => {
-        //     if (this.state.categoryId !== store.getState().catalog.categoryId) {
-        //         this.setState({
-        //             categoryId: store.getState().catalog.categoryId,
-        //             secondCategories: store.getState().catalog.secondCategories
-        //         });
-        //         setTimeout(() => {
-        //             this.initStates();
-        //         }, 0);
-        //     }
-        // });
     }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
+            console.log('this.state.categoryId: ' + this.state.categoryId);
+            console.log('store.getState().catalog.categoryId: ' + store.getState().catalog.categoryId);
             if (this.state.categoryId !== store.getState().catalog.categoryId) {
                 this.setState({
                     categoryId: store.getState().catalog.categoryId,
                     secondCategories: store.getState().catalog.secondCategories
-                });
-                // setTimeout(() => {
-                //     this.initStates();
-                // }, 0);
+                }, this.initStates);
             }
         });
     }
