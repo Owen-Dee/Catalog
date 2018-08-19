@@ -1,9 +1,9 @@
 import * as React from 'react';
-import GlobalSearch from './globalsearch/globalsearch';
-import FreeDesign from './freedesign/freedesign';
-import Tenant from './tenant/tenant';
-import MaterialLibrary from './materiallibrary/materiallibrary';
-import UserCenter from './usercenter/usercenter';
+import GlobalSearch from '../../../containers/catalog/catalogsidebar/globalsearch';
+import FreeDesign from '../../../containers/catalog/catalogsidebar/freedesign';
+import Tenant from  '../../../containers/catalog/catalogsidebar/tenant';
+import MaterialLibrary from '../../../containers/catalog/catalogsidebar/materiallibrary';
+import UserCenter from '../../../containers/catalog/catalogsidebar/usercenter';
 import { CatalogSidebarType } from '../../../entity/catalogentity';
 import './catalogsidebar.scss';
 

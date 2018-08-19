@@ -1,8 +1,6 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
 import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
-import store from '../../../../store/index';
-import * as Actions from '../../../../actions/catalog';
 import './globalsearch.scss';
 
 /**
@@ -13,6 +11,7 @@ import './globalsearch.scss';
 interface IGlobalSearchProps {
     sidebarType: string,
     onSidebarTypeChange: (val) => void,
+    onChangeCatalogType: () => void
 }
 
 export default class GlobalSearch extends React.Component<IGlobalSearchProps, any> {
@@ -22,7 +21,7 @@ export default class GlobalSearch extends React.Component<IGlobalSearchProps, an
 
     handleSidebarTypeChange() {
         this.props.onSidebarTypeChange(CatalogSidebarType.GlobalSearch);
-        store.dispatch(Actions.changeCatalogType(CatalogContentType.GlobalSearchMaterial));
+        this.props.onChangeCatalogType();
     }
 
     render() {

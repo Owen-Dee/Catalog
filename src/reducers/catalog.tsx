@@ -8,7 +8,7 @@ const initState = {
 	modelsData: [],
 	pageRandom: 0,
 	categoryId: '',
-    isFetching: false,
+    isFetching: true,
 	tenantOperator: 'Eq',
 	secondCategories: []
 };

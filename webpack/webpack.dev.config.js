@@ -37,7 +37,7 @@ module.exports = merge(webpackConfig, {
       errors: true
     },
     // 设置localhost端口
-    port: 6090,
+    port: 6060,
     publicPath: "/",
     inline: true, // 自动刷新
     hot: true, // 开启热模块替换

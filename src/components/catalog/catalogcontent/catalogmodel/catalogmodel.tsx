@@ -1,10 +1,8 @@
 import * as React from 'react';
 import ReactLoading from 'react-loading';
-import store from '../../../../store/index';
 import HeaderSearch from '../headersearch/headersearch';
 import ModelMaterials from '../modelmaterials/modelmaterials';
 import Pagination from '../../common/pagination/pagination';
-import { getCatalogModels } from '../../../../actions/catalog';
 import './catalogmodel.scss';
 /**
  * @description:catalog模型材质组件对应的states
@@ -13,37 +11,20 @@ import './catalogmodel.scss';
  * @isFetching:是否向服务获取数据
  * @tenantOperator: 记录是tenant的数据,还是素材库的数据
  */
-interface ICatalogModelStates {
+interface ICatalogModelProps {
     modelsData: Array<any>,
     categoryId: string,
     isFetching: boolean,
-    tenantOperator: string
+    tenantOperator: string,
+    onGetCatalogModels: (val) => void,
 }
 
-export default class CatalogModel extends React.Component<any, ICatalogModelStates> {
+export default class CatalogModel extends React.Component<ICatalogModelProps> {
     pageIndex: number;
     unsubscribe: any;
-    constructor(props) {
+    constructor(props: ICatalogModelProps) {
         super(props);
-        this.state = {
-            modelsData: [],
-            categoryId: '',
-            isFetching: true,
-            tenantOperator: 'Eq'
-        };
         this.pageIndex = 0;
-        this.unsubscribe = store.subscribe(() => {
-            this.setState({
-                modelsData: store.getState().catalog.modelsData,
-                categoryId: store.getState().catalog.categoryId,
-                isFetching: store.getState().catalog.isFetching,
-                tenantOperator: store.getState().catalog.tenantOperator
-            });
-        });
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe(); // 解除监听。
     }
 
     handleChangePageIndex(pageIndex: number) {
@@ -54,19 +35,19 @@ export default class CatalogModel extends React.Component<any, ICatalogModelStat
     getCatalogModels() {
         const tenant = 'jtljia';
         let params = {
-            categoryId: this.state.categoryId,
+            categoryId: this.props.categoryId,
             pageIndex: this.pageIndex,
             tenant: tenant,
-            tenantOperator: this.state.tenantOperator
+            tenantOperator: this.props.tenantOperator
         };
 
-        store.dispatch(getCatalogModels(params));
+        this.props.onGetCatalogModels(params);
     }
 
     render() {
-        let models = this.state.modelsData['models'];
-        let pageCount = this.state.modelsData['pageCount'];
-        let loadingStyle = this.state.isFetching ? 'loading-active' : 'loading-unActive';
+        let models = this.props.modelsData['models'];
+        let pageCount = this.props.modelsData['pageCount'];
+        let loadingStyle = this.props.isFetching ? 'loading-active' : 'loading-unActive';
 
         return (
             <div className="catalog-model">

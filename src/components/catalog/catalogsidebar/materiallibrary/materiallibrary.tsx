@@ -1,10 +1,7 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
 import CatalogCategory from '../../common/catalogcategory/catalogcategory';
-import store from '../../../../store/index';
-import * as Actions from '../../../../actions/catalog';
 import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
-import { getCatalogModels } from '../../../../actions/catalog';
 import CatalogService from '../../utils/catalogservice';
 import './materiallibrary.scss';
 /**
@@ -15,6 +12,11 @@ import './materiallibrary.scss';
 interface IMaterialLibraryProps {
     sidebarType: string,
     onSidebarTypeChange: (val) => void,
+    onChangeCatalogType: () => void,
+    onResetCatalogPageIndex: (val) => void,
+    onRecordCatalogSearchConditions: (val1, val2) => void,
+    onRecordSecondCategories: (val) => void,
+    onGetCatalogModels: (val) => void,
 }
 /**
  * @description: 组件MaterialLibrary对应的state
@@ -65,38 +67,38 @@ export default class MaterialLibrary extends React.Component<IMaterialLibraryPro
             this.childComponet.resetActiveMenu(activeMenuId, activeIndex);
         }
         //4.加载Catalog Content组件模板
-        store.dispatch(Actions.changeCatalogType(CatalogContentType.CatalogModel));
+        this.props.onChangeCatalogType();
         //5.通过随机数的变化,重置分页数据
         let random = Math.random();
-        store.dispatch(Actions.resetCatalogPageIndex(random));
+        this.props.onResetCatalogPageIndex(random);
         //6.记录选中的分类id并获取Catalog的模型数据进行填充
         const tenant = 'jtljia', tenantOperator = '!Eq';
-        store.dispatch(Actions.recordCatalogSearchConditions(categoryId, tenantOperator));
+        this.props.onRecordCatalogSearchConditions(categoryId, tenantOperator);
         let params = {
             categoryId: categoryId,
             pageIndex: 0,
             tenant: tenant,
             tenantOperator: tenantOperator
         };
-        store.dispatch(getCatalogModels(params));
+        this.props.onGetCatalogModels(params);
     }
 
     handleChangeCategoryId(categoryId: string, secondCategories: Array<any>) {
         //1.通过随机数的变化,重置分页数据
         let random = Math.random();
-        store.dispatch(Actions.resetCatalogPageIndex(random));
+        this.props.onResetCatalogPageIndex(random);
         //2.记录选中的分类id并获取Catalog的模型数据进行填充
         // 并且记录category第二级之后的menu tree
         const tenant = 'jtljia', tenantOperator = '!Eq';
-        store.dispatch(Actions.recordCatalogSearchConditions(categoryId, tenantOperator));
-        store.dispatch(Actions.recordSecondCategories(secondCategories));
+        this.props.onRecordCatalogSearchConditions(categoryId, tenantOperator);
+        this.props.onRecordSecondCategories(secondCategories);
         let params = {
             categoryId: categoryId,
             pageIndex: 0,
             tenant: tenant,
             tenantOperator: tenantOperator
         };
-        store.dispatch(getCatalogModels(params));
+        this.props.onGetCatalogModels(params);
     }
 
     onRef(ref) {

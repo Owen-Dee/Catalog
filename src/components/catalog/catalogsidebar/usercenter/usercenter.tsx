@@ -1,8 +1,6 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
 import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
-import store from '../../../../store/index';
-import * as Actions from '../../../../actions/catalog';
 import './usercenter.scss';
 /**
  * @description: 组件UserCenter对应的属性
@@ -12,6 +10,7 @@ import './usercenter.scss';
 interface IUserCenterProps {
     sidebarType: string,
     onSidebarTypeChange: (val) => void,
+    onChangeCatalogType: (val) => void,
 }
 /**
  * @description: 组件UserCenter对应的states
@@ -30,7 +29,7 @@ export default class UserCenter extends React.Component<IUserCenterProps, IUserC
     }
 
     changeCatalogType(type: string) {
-        store.dispatch(Actions.changeCatalogType(type));
+        this.props.onChangeCatalogType(type);
         this.setState({
             type: type
         });
@@ -38,7 +37,7 @@ export default class UserCenter extends React.Component<IUserCenterProps, IUserC
 
     handleSidebarTypeChange() {
         this.props.onSidebarTypeChange(CatalogSidebarType.UserCenter);
-        this.changeCatalogType(CatalogContentType.UserCollection);
+        this.props.onChangeCatalogType(CatalogContentType.UserCollection);
     }
 
     render() {

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
 import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity'
-import store from '../../../../store/index';
-import * as Actions from '../../../../actions/catalog';
 import './freedesign.scss';
 
 /**
@@ -13,6 +11,7 @@ import './freedesign.scss';
 interface IFreeDesignProps {
     sidebarType: string,
     onSidebarTypeChange: (val) => void,
+    onChangeCatalogType: (val) => void,
 }
 
 /**
@@ -32,7 +31,7 @@ export default class FreeDesign extends React.Component<IFreeDesignProps, IFreeD
     }
 
     changeCatalogType(type: string) {
-        store.dispatch(Actions.changeCatalogType(type));
+        this.props.onChangeCatalogType(type);
         this.setState({
             type: type
         });
@@ -40,7 +39,7 @@ export default class FreeDesign extends React.Component<IFreeDesignProps, IFreeD
 
     handleSidebarTypeChange() {
         this.props.onSidebarTypeChange(CatalogSidebarType.FreeDesign);
-        this.changeCatalogType(CatalogContentType.HouseDesign);
+        this.props.onChangeCatalogType(CatalogContentType.HouseDesign);
     }
 
     render() {
