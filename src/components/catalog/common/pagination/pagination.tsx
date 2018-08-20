@@ -1,5 +1,4 @@
 import * as React from 'react';
-import store from '../../../../store/index';
 import * as ReactPaginate from 'react-paginate';
 import './pagination.scss';
 
@@ -33,8 +32,11 @@ interface IPaginationStates {
 
 export default class Pagination extends React.Component<IPaginationProps, IPaginationStates> {
     unsubscribe: any;
-    constructor(props: IPaginationProps) {
-        super(props);
+    static contextTypes = {
+        store: () => { return null },
+    };
+    constructor(props: IPaginationProps, context) {
+        super(props, context);
         this.state = {
             forcePage: 0,
             showJumpPage: false,
@@ -43,6 +45,14 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
             pageRange: 3,
             marginPages: 1
         };
+    }
+
+    componentDidMount() {
+        let store = this.context.store;
+        if (!store) {
+            return;
+        }
+
         this.unsubscribe = store.subscribe(() => {
             if (store.getState().catalog.pageRandom !== this.state.pageRandom) {
                 this.setState({
