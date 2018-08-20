@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactLoading from 'react-loading';
-import HeaderSearch from '../headersearch/headersearch';
+import HeaderSearch from '../../../../containers/catalog/catalogcontent/headersearch';
 import ModelMaterials from '../modelmaterials/modelmaterials';
 import Pagination from '../../common/pagination/pagination';
 import './catalogmodel.scss';
@@ -19,7 +19,7 @@ interface ICatalogModelProps {
     onGetCatalogModels: (val) => void,
 }
 
-export default class CatalogModel extends React.Component<ICatalogModelProps> {
+export default class CatalogModel extends React.Component<ICatalogModelProps, any> {
     pageIndex: number;
     unsubscribe: any;
     constructor(props: ICatalogModelProps) {
@@ -44,6 +44,11 @@ export default class CatalogModel extends React.Component<ICatalogModelProps> {
         this.props.onGetCatalogModels(params);
     }
 
+    handleChangeHeaderConditions() {
+        this.pageIndex = 0;
+        this.getCatalogModels();
+    }
+
     render() {
         let models = this.props.modelsData['models'];
         let pageCount = this.props.modelsData['pageCount'];
@@ -51,7 +56,7 @@ export default class CatalogModel extends React.Component<ICatalogModelProps> {
 
         return (
             <div className="catalog-model">
-                <HeaderSearch></HeaderSearch>
+                <HeaderSearch onChangeHeaderConditions={this.handleChangeHeaderConditions.bind(this)}></HeaderSearch>
                 <ModelMaterials models={models}></ModelMaterials>
                 <Pagination pageCount={pageCount}
                     onChangePageIndex={this.handleChangePageIndex.bind(this)}>

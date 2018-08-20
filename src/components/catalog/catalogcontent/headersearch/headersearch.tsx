@@ -1,44 +1,28 @@
 import * as React from 'react';
 import ExpandConditions from '../../common/expandconditions/expandconditions';
-import store from '../../../../store/index';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './HeaderSearch.scss';
 
-interface IHeaderSearchStates {
-    categoryId: string,
-    secondMenuName: string,
-    thirdMenuName: string,
+interface IHeaderSearchProps {
     secondCategories: Array<any>,
-    thirdCategories: Array<any>
+    thirdCategories: Array<any>,
+    secondActiveId: string,
+    thirdActiveId: string,
+    secondActiveName: string,
+    thirdActiveName: string,
+    tenantOperator: string,
+    onChangeHeaderConditions?: () => void,
+    onRecordHeaderSearchCategories?: (v1, v2, v3, v4, v5, v6) => void,
+    onRecordCatalogSearchConditions?: (val1, val2) => void,
+    onResetCatalogPageIndex: (val) => void,
 }
 
-export default class HeaderSearch extends React.Component<any, IHeaderSearchStates> {
+export default class HeaderSearch extends React.Component<IHeaderSearchProps, any> {
     textInput: any;
-    unsubscribe: any;
-    constructor(props) {
+    constructor(props: IHeaderSearchProps) {
         super(props);
         this.textInput = React.createRef();
-        this.state = {
-            categoryId: '',
-            secondMenuName: '',
-            thirdMenuName: '',
-            secondCategories: [],
-            thirdCategories: []
-        };
-    }
-
-    componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            console.log('this.state.categoryId: ' + this.state.categoryId);
-            console.log('store.getState().catalog.categoryId: ' + store.getState().catalog.categoryId);
-            if (this.state.categoryId !== store.getState().catalog.categoryId) {
-                this.setState({
-                    categoryId: store.getState().catalog.categoryId,
-                    secondCategories: store.getState().catalog.secondCategories
-                }, this.initStates);
-            }
-        });
     }
 
     componentDidMount() {
@@ -49,113 +33,39 @@ export default class HeaderSearch extends React.Component<any, IHeaderSearchStat
         this.textInput.current.focus();
     }
 
-    componentWillUnmount() {
-        this.unsubscribe(); // 解除监听。
-    }
-
-    initStates() {
-        let clickFirstMenu = true; // 点击第一级category menu
-        let secondCategories = [...this.state.secondCategories];
-        if (secondCategories.length === 0) { // 第一级category menu没有子category
-            let item = {
-                id: this.state.categoryId,
-                categories: [],
-                name: '全部'
-            };
-
-            secondCategories.push(item);
-            let thirdCategories = [];
-            thirdCategories.push(item);
-            this.setState({
-                secondMenuName: '全部',
-                thirdMenuName: '全部',
-                secondCategories: secondCategories,
-                thirdCategories: thirdCategories
-            });
-        } else { // 有子category       
-            for (let i = 0; i < secondCategories.length; i++) {
-                if (this.state.categoryId === secondCategories[i].id) { // 如果点击的是第二级category menu
-                    let secondItem = {
-                        id: secondCategories[i].parentId,
-                        categories: [],
-                        name: '全部' 
-                    };
-                    secondCategories.push(secondItem); // 将父节点作为【全部】分类添加进来
-                    var thirdCategories = [...secondCategories[i].categories];
-                    // 设置第三级数据
-                    let thirdItem = {
-                        id: secondCategories[i].id,
-                        categories: [],
-                        name: '全部' 
-                    };
-                    thirdCategories.push(thirdItem);
-                    this.setState({
-                        secondMenuName: secondCategories[i].name,
-                        thirdMenuName: '全部',
-                        secondCategories:  secondCategories,
-                        thirdCategories: thirdCategories
-                    });
-                    clickFirstMenu = false;
-
-                    break;
-                } else { // 如果点击的是第三级category menu
-                    let thirdCategories = [...secondCategories[i].categories];
-                    for (let j = 0; j < thirdCategories.length; j++) {
-                        if (this.state.categoryId === thirdCategories[j].id) {
-                            let secondItem = {
-                                id: secondCategories[i].parentId,
-                                categories: [],
-                                name: '全部' 
-                            };
-                            secondCategories.push(secondItem); // 将父节点作为【全部】分类添加进来
-                            // 设置第三级数据
-                            let thirdItem = {
-                                id: secondCategories[i].id,
-                                categories: [],
-                                name: '全部' 
-                            };
-                            thirdCategories.push(thirdItem);
-                            this.setState({
-                                secondMenuName: secondCategories[i].name,
-                                thirdMenuName: thirdCategories[j].name,
-                                secondCategories: secondCategories,
-                                thirdCategories: thirdCategories
-                            });
-                            clickFirstMenu = false;
-
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (clickFirstMenu) { // 点击第一级category menu
-                var thirdCategories = [];
-                let item = {
-                    id: secondCategories[0].parentId,
-                    categories: [],
-                    name: '全部' 
-                };
-                secondCategories.push(item); // 将父节点作为【全部】分类添加进来
-                thirdCategories.push(item);
-                this.setState({
-                    secondMenuName: '全部',
-                    thirdMenuName: '全部',
-                    secondCategories:  secondCategories,
-                    thirdCategories: thirdCategories
-                });
-            }
-        }
+    getCatalogMark() {
+        const catalogMark = <div className="condition-item">
+                                <div className="name-control">
+                                    <div className="name">4.0套餐</div>
+                                    <span className="dot-bottom"></span>
+                                    <span className="dot-top"></span>
+                                </div>
+                                <div className="items">
+                                    <PerfectScrollbar>
+                                        <div className="item">5.0套餐</div>
+                                        <div className="item">4.0套餐</div>
+                                        <div className="item">3.1套餐</div>
+                                        <div className="item">3.0套餐</div>
+                                    </PerfectScrollbar>
+                                </div>
+                            </div>;
+        
+        return (
+            catalogMark
+        )
     }
 
     getSecondMenuList() {
-        debugger
-        const menuList = this.state.secondCategories.map(category => {
-            return <div className="item" key={category.id}>{category.name}</div>
+        const menuList = this.props.secondCategories.map(category => {
+            let isMenuActive = this.props.secondActiveId === category.id;
+            return <div className={['item', isMenuActive ? 'active' : ''].join(' ')} 
+                        key={category.id} onClick={this.handleClickSecondMenu.bind(this, category)}>
+                        {category.name}
+                    </div>
         });
         let secondMenuList = <div className="condition-item">
                                 <div className="name-control">
-                                    <div className="name">{this.state.secondMenuName}</div>
+                                    <div className="name">{this.props.secondActiveName}</div>
                                     <span className="dot-bottom"></span>
                                     <span className="dot-top"></span>
                                 </div>
@@ -171,8 +81,87 @@ export default class HeaderSearch extends React.Component<any, IHeaderSearchStat
         )
     }
 
+    getThirdMenuList() {
+        const menuList = this.props.thirdCategories.map(category => {
+            let isMenuActive = this.props.thirdActiveId === category.id;
+            return <div className={['item', isMenuActive ? 'active' : ''].join(' ')}
+                        key={category.id} onClick={this.handleClickThirdMenu.bind(this, category)}>
+                        {category.name}
+                    </div>
+        });
+        let thirdMenuList = <div className="condition-item">
+            <div className="name-control">
+                <div className="name">{this.props.thirdActiveName}</div>
+                <span className="dot-bottom"></span>
+                <span className="dot-top"></span>
+            </div>
+            <div className="items">
+                <PerfectScrollbar>
+                    {menuList}
+                </PerfectScrollbar>
+            </div>
+        </div>;
+
+        return (
+            thirdMenuList
+        )
+    }
+
+    handleClickSecondMenu(category) {
+        let secondCategories = this.props.secondCategories, // 第二级分类
+            thirdCategories = [...category.categories], // 第三级分类
+            secondActiveId = category.id, // 第二级分类被激活的id
+            thirdActiveId = category.id, //第三级分类被激活的id
+            secondActiveName = category.name, // 第二级分类被激活的名称
+            thirdActiveName = '全部'; // 第三级分类被激活的名称
+
+        let item = {
+            id: category.id,
+            categories: [],
+            name: '全部'
+        }
+        thirdCategories.splice(0, 0, item);
+        //1.更改头部分类查询条件的信息
+        this.props.onRecordHeaderSearchCategories(secondCategories, thirdCategories, secondActiveId,
+            thirdActiveId, secondActiveName, thirdActiveName);
+        //2.记录当前的active分类id
+        this.props.onRecordCatalogSearchConditions(category.id, this.props.tenantOperator);
+        //3.通过随机数的变化,重置分页数据
+        let random = Math.random();
+        this.props.onResetCatalogPageIndex(random);
+        //4.由于更改分类id,父组件无法实时获取到active menuId
+        //放到异步线程中
+        setTimeout(() => {
+            this.props.onChangeHeaderConditions();
+        }, 0);
+    }
+
+    handleClickThirdMenu(category) {
+        let secondCategories = this.props.secondCategories, // 第二级分类
+            thirdCategories = this.props.thirdCategories, // 第三级分类
+            secondActiveId = this.props.secondActiveId, // 第二级分类被激活的id
+            thirdActiveId = category.id, //第三级分类被激活的id
+            secondActiveName = this.props.secondActiveName, // 第二级分类被激活的名称
+            thirdActiveName = category.name; // 第三级分类被激活的名称
+        //1.更改头部分类查询条件的信息
+        this.props.onRecordHeaderSearchCategories(secondCategories, thirdCategories, secondActiveId,
+            thirdActiveId, secondActiveName, thirdActiveName);
+        //2.记录当前的active分类id
+        this.props.onRecordCatalogSearchConditions(category.id, this.props.tenantOperator);
+        //3.通过随机数的变化,重置分页数据
+        let random = Math.random();
+        this.props.onResetCatalogPageIndex(random);
+        //4.由于更改分类id,父组件无法实时获取到active menuId
+        //放到异步线程中
+        setTimeout(() => {
+            this.props.onChangeHeaderConditions();
+        }, 0);
+    }
+
     render() {
+        const catalogMark = this.getCatalogMark();
         const secondMenuList = this.getSecondMenuList();
+        const thirdMenuList = this.getThirdMenuList();
         return (
             <div className="header-search">
                 <div className="search-control">
@@ -180,40 +169,9 @@ export default class HeaderSearch extends React.Component<any, IHeaderSearchStat
                     <img src={require('./img/search.svg')} alt="" />
                 </div>
                 <div className="select-conditions">
-                    <div className="condition-item">
-                        <div className="name-control">
-                            <div className="name">4.0套餐</div>
-                            <span className="dot-bottom"></span>
-                            <span className="dot-top"></span>
-                        </div>
-                        <div className="items">
-                            <PerfectScrollbar>
-                                <div className="item">5.0套餐</div>
-                                <div className="item">4.0套餐</div>
-                                <div className="item">3.1套餐</div>
-                                <div className="item">3.0套餐</div>
-                            </PerfectScrollbar>
-                        </div>
-                    </div>
-
+                    {catalogMark}
                     {secondMenuList}
-
-                    <div className="condition-item">
-                        <div className="name-control">
-                            <div className="name">波打线</div>
-                            <span className="dot-bottom"></span>
-                            <span className="dot-top"></span>
-                        </div>
-                        <div className="items">
-                            <PerfectScrollbar>
-                                <div className="item">波打线</div>
-                                <div className="item">过门石</div>
-                                <div className="item">烟道</div>
-                                <div className="item">石坎</div>
-                            </PerfectScrollbar>
-                        </div>
-                    </div>
-
+                    {thirdMenuList}
                     <div className="expand-conditions-icon">
                         <img src={require('./img/expand.svg')} className="normal" alt=""/>
                         <img src={require('./img/expand-light.svg')} className="light" alt="" />

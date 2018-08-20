@@ -10,7 +10,12 @@ const initState = {
 	categoryId: '',
     isFetching: true,
 	tenantOperator: 'Eq',
-	secondCategories: []
+	secondCategories: [],
+	thirdCategories: [],
+	secondActiveId: '',
+	thirdActiveId: '',
+	secondActiveName: '',
+	thirdActiveName: '',
 };
 
 export function changeCatalogType(state: Catalog = initState, action: All): Catalog {
@@ -47,10 +52,15 @@ export function changeCatalogType(state: Catalog = initState, action: All): Cata
 				categoryId: action.categoryId,
 				tenantOperator: action.tenantOperator
 			}
-		case Constants.RECORD_SECOND_CATEGORIES:
+		case Constants.RECORD_HEADER_SEARCH_CATEGORIES:
 			return {
 				...state,
-				secondCategories: action.payLoad
+				secondCategories: action.secondCategories,
+				thirdCategories: action.thirdCategories,
+				secondActiveId: action.secondActiveId,
+				thirdActiveId: action.thirdActiveId,
+				secondActiveName: action.secondActiveName,
+				thirdActiveName: action.thirdActiveName
 			}
 		default:
 			break;

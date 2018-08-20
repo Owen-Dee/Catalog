@@ -1,8 +1,6 @@
 import * as React from 'react';
 import CatalogSubmenu from '../catalogsubmenu/catalogsubmenu';
 let PerfectScrollbar = require('react-perfect-scrollbar');
-import store from '../../../../store/index';
-import * as Actions from '../../../../actions/catalog';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogcategory.scss';
 
@@ -15,6 +13,7 @@ export interface ICatalogCategoryProps {
     showCategories: boolean,
     categories: Array<any>,
     onChangeCategoryId: (val1, val2?) => void,
+    onRecordHeaderSearchCategories?: (v1, v2, v3, v4, v5, v6) => void
     onRef?: (val) => void
 }
 /**
@@ -87,8 +86,32 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
             activeIndex: activeIndex,
             menuIndex: -1,
         });
-        let secondCategories = category.categories ? category.categories : [];
-        this.props.onChangeCategoryId(category.id, [...secondCategories]);
+        this.recordFirstMenuCategories(category.id, category);
+        this.props.onChangeCategoryId(category.id);
+    }
+
+    recordFirstMenuCategories(categoryId, category) {
+        let categories = category.categories;
+        let secondCategories = categories ? [...categories] : [], // 第二级分类
+            thirdCategories = [], // 第三级分类
+            secondActiveId = '', // 第二级分类被激活的id
+            thirdActiveId = '', //第三级分类被激活的id
+            secondActiveName = '', // 第二级分类被激活的名称
+            thirdActiveName = ''; // 第三级分类被激活的名称
+
+        let item = {
+            id: categoryId,
+            categories: [],
+            name: '全部'
+        }
+        secondCategories.splice(0, 0, item);
+        thirdCategories.splice(0, 0, item);
+        secondActiveId = categoryId;
+        thirdActiveId = categoryId;
+        secondActiveName = '全部';
+        thirdActiveName = '全部';
+        this.props.onRecordHeaderSearchCategories(secondCategories, thirdCategories, secondActiveId,
+            thirdActiveId, secondActiveName, thirdActiveName);
     }
 
     handleFirstMenuEnter(category, index) {
@@ -122,7 +145,73 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
         });
         let activeCategory = this.props.categories[activeIndex];
         let secondCategories = activeCategory.categories ? activeCategory.categories : [];
-        this.props.onChangeCategoryId(categoryId, [...secondCategories]);
+        this.recordSubmenuCategories(categoryId, secondCategories);
+        this.props.onChangeCategoryId(categoryId); 
+    }
+
+    recordSubmenuCategories(categoryId, categories) {
+        debugger
+        let secondCategories = categories ? [...categories] : [], // 第二级分类
+            thirdCategories = [], // 第三级分类
+            secondActiveId = '', // 第二级分类被激活的id
+            thirdActiveId = '', //第三级分类被激活的id
+            secondActiveName = '', // 第二级分类被激活的名称
+            thirdActiveName = ''; // 第三级分类被激活的名称
+        let secondCategoriesTemp = categories ? [...categories] : [], // 临时变量
+            thirdCategoriesTemp = [];
+        for (let i = 0; i < secondCategories.length; i++) {
+            if (categoryId === secondCategories[i].id) { // 如果点击的是第二级category menu
+                let secondItem = { //第二级的全部节点为当前节点的父节点
+                    id: secondCategories[i].parentId,
+                    categories: [],
+                    name: '全部'
+                };
+                secondCategoriesTemp.splice(0, 0, secondItem); // 将父节点作为【全部】分类添加进来
+                thirdCategoriesTemp = [...secondCategories[i].categories];
+                // 设置第三级数据
+                let thirdItem = { //添加第三级的全部节点
+                    id: secondCategories[i].id,
+                    categories: [],
+                    name: '全部'
+                };
+                thirdCategoriesTemp.splice(0, 0, thirdItem);
+                secondActiveId = categoryId;
+                thirdActiveId = categoryId;
+                secondActiveName = secondCategories[i].name;
+                thirdActiveName = '全部';
+                break;
+            } else { // 如果点击的是第三级category menu
+                thirdCategories = [...secondCategories[i].categories];
+                for (let j = 0; j < thirdCategories.length; j++) {
+                    if (categoryId === thirdCategories[j].id) {
+                        let secondItem = {
+                            id: secondCategories[i].parentId,
+                            categories: [],
+                            name: '全部'
+                        };
+                        secondCategoriesTemp.splice(0, 0, secondItem); // 将父节点作为【全部】分类添加进来
+                        // 设置第三级数据
+                        let thirdItem = {
+                            id: secondCategories[i].id,
+                            categories: [],
+                            name: '全部'
+                        };
+                        thirdCategoriesTemp = [...secondCategories[i].categories];
+                        thirdCategoriesTemp.splice(0, 0, thirdItem);
+                        secondActiveId = secondCategories[i].id;
+                        thirdActiveId = categoryId;
+                        secondActiveName = secondCategories[i].name;
+                        thirdActiveName = thirdCategories[j].name;
+                        break;
+                    }
+                }
+            }
+        }
+
+        secondCategories = secondCategoriesTemp;
+        thirdCategories = thirdCategoriesTemp;
+        this.props.onRecordHeaderSearchCategories(secondCategories, thirdCategories, secondActiveId,
+            thirdActiveId, secondActiveName, thirdActiveName);
     }
 
     render() {

@@ -91,15 +91,30 @@ export function recordCatalogSearchConditions(categoryId: string, tenantOperator
 	}
 }
 //=======7========
-export interface ISecondCategories {
-	type: constants.RECORD_SECOND_CATEGORIES,
-	payLoad: Array<any>
+export interface IHeaderSearchCategories {
+	type: constants.RECORD_HEADER_SEARCH_CATEGORIES,
+	secondCategories: Array<any>,
+	thirdCategories: Array<any>,
+	secondActiveId: string,
+	thirdActiveId: string,
+	secondActiveName: string,
+	thirdActiveName: string,
 }
 
-export function recordSecondCategories(categories: Array<any>): ISecondCategories {
+export function recordHeaderSearchCategories(secondCategories: Array<any>,
+											thirdCategories: Array<any>,
+											secondActiveId: string,
+											thirdActiveId: string,
+											secondActiveName: string,
+											thirdActiveName: string): IHeaderSearchCategories {
 	return {
-		type: constants.RECORD_SECOND_CATEGORIES,
-		payLoad: categories
+		type: constants.RECORD_HEADER_SEARCH_CATEGORIES,
+		secondCategories: secondCategories,
+		thirdCategories: thirdCategories,
+		secondActiveId: secondActiveId,
+		thirdActiveId: thirdActiveId,
+		secondActiveName: secondActiveName,
+		thirdActiveName: thirdActiveName
 	}
 }
 
@@ -134,4 +149,4 @@ export type All = ICatalogType
 				| ICatalogRequest
 				| ICatalogReceive
 				| ICatalogConditions
-				| ISecondCategories;
+				| IHeaderSearchCategories;

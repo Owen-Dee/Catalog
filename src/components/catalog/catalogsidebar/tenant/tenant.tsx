@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
-import CatalogCategory from '../../common/catalogcategory/catalogcategory';
+import CatalogCategory from '../../../../containers/catalog/common/catalogcategory';
 import { CatalogSidebarType } from '../../../../entity/catalogentity';
 import CatalogService from '../../utils/catalogservice';
 import './tenant.scss';
@@ -17,6 +17,7 @@ interface ITenantProps {
     onRecordCatalogSearchConditions: (val1, val2) => void,
     onRecordSecondCategories: (val) => void,
     onGetCatalogModels: (val) => void,
+    onRecordHeaderSearchCategories?: (v1, v2, v3, v4, v5, v6) => void
 }
 /**
  * @description: 组件Tenant对应的state
@@ -65,6 +66,7 @@ export default class Tenant extends React.Component<ITenantProps, ITenantStates>
             let activeMenuId = '',
                 activeIndex = 0;
             this.childComponet.resetActiveMenu(activeMenuId, activeIndex);
+            this.recordFirstMenuCategories(categoryId, this.state.categories[0]);
         }
         //4.加载Catalog Content组件模板
         this.props.onChangeCatalogType();
@@ -83,7 +85,31 @@ export default class Tenant extends React.Component<ITenantProps, ITenantStates>
         this.props.onGetCatalogModels(params);
     }
 
-    handleChangeCategoryId(categoryId: string, secondCategories: Array<any>) {
+    recordFirstMenuCategories(categoryId, category) {
+        let categories = category.categories;
+        let secondCategories = categories ? [...categories] : [], // 第二级分类
+            thirdCategories = [], // 第三级分类
+            secondActiveId = '', // 第二级分类被激活的id
+            thirdActiveId = '', //第三级分类被激活的id
+            secondActiveName = '', // 第二级分类被激活的名称
+            thirdActiveName = ''; // 第三级分类被激活的名称
+
+        let item = {
+            id: categoryId,
+            categories: [],
+            name: '全部'
+        }
+        secondCategories.splice(0, 0, item);
+        thirdCategories.splice(0, 0, item);
+        secondActiveId = categoryId;
+        thirdActiveId = categoryId;
+        secondActiveName = '全部';
+        thirdActiveName = '全部';
+        this.props.onRecordHeaderSearchCategories(secondCategories, thirdCategories, secondActiveId,
+            thirdActiveId, secondActiveName, thirdActiveName);
+    }
+
+    handleChangeCategoryId(categoryId: string) {
         //1.通过随机数的变化,重置分页数据
         let random = Math.random();
         this.props.onResetCatalogPageIndex(random);
@@ -91,7 +117,6 @@ export default class Tenant extends React.Component<ITenantProps, ITenantStates>
         // 并且记录category第二级之后的menu tree
         const tenant = 'jtljia', tenantOperator = 'Eq';
         this.props.onRecordCatalogSearchConditions(categoryId, tenantOperator);
-        this.props.onRecordSecondCategories(secondCategories);
         let params = {
             categoryId: categoryId,
             pageIndex: 0,

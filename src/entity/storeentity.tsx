@@ -15,7 +15,12 @@ export interface Catalog {
 	categoryId: string,
     isFetching: boolean,
 	tenantOperator: string,
-	secondCategories: Array<any>
+	secondCategories: Array<any>,
+	thirdCategories: Array<any>,
+	secondActiveId: string,
+	thirdActiveId: string,
+	secondActiveName: string,
+	thirdActiveName: string,
 }
 
 /**

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SidebarItem from '../../common/sidebaritem/sidebaritem';
-import { CatalogSidebarType, CatalogContentType } from '../../../../entity/catalogentity';
+import { CatalogSidebarType } from '../../../../entity/catalogentity';
 import './globalsearch.scss';
 
 /**
