@@ -63,9 +63,8 @@ export default class Tenant extends React.Component<ITenantProps, ITenantStates>
         let categoryId = '';
         if (this.state.categories.length > 0) {
             categoryId = this.state.categories[0].id;
-            let activeMenuId = '',
-                activeIndex = 0;
-            this.childComponet.resetActiveMenu(activeMenuId, activeIndex);
+            let activeIndex = 0;
+            this.childComponet.resetActiveMenu(activeIndex);
             this.recordFirstMenuCategories(categoryId, this.state.categories[0]);
         }
         //4.加载Catalog Content组件模板

@@ -64,9 +64,8 @@ export default class MaterialLibrary extends React.Component<IMaterialLibraryPro
         let categoryId = '';
         if (this.state.categories.length > 0) {
             categoryId = this.state.categories[1].id;
-            let activeMenuId = '',
-                activeIndex = 1;
-            this.childComponet.resetActiveMenu(activeMenuId, activeIndex);
+            let activeIndex = 1;
+            this.childComponet.resetActiveMenu(activeIndex);
             this.recordFirstMenuCategories(categoryId, this.state.categories[1]);
         }
         //4.加载Catalog Content组件模板

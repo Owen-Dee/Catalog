@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CatalogSubmenu from '../catalogsubmenu/catalogsubmenu';
+import CatalogSubmenu from '../../../../containers/catalog/common/catalogsubmenu';
 let PerfectScrollbar = require('react-perfect-scrollbar');
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './catalogcategory.scss';
@@ -25,7 +25,6 @@ export interface ICatalogCategoryProps {
  * @submenuOffsetTop: 二级菜单对应的top值
  */
 export interface ICatalogCategoryStates {
-    activeMenuId: string,
     activeIndex: number,
     menuIndex: number,
     categories: Array<any>,
@@ -36,7 +35,6 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
     constructor(props: ICatalogCategoryProps) {
         super(props);
         this.state = {
-            activeMenuId: '',
             activeIndex: -1,
             menuIndex: -1,
             categories: [],
@@ -44,9 +42,8 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
         };
     }
 
-    resetActiveMenu(activeMenuId: string, activeIndex: number) {
+    resetActiveMenu(activeIndex: number) {
         this.setState({
-            activeMenuId: activeMenuId,
             activeIndex: activeIndex,
         });
     }
@@ -82,7 +79,6 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
 
     handleFirstMenuClicked(category, activeIndex) {
         this.setState({
-            activeMenuId: category.id,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
@@ -139,7 +135,6 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
 
     handleClickSubmenu(categoryId: string, activeIndex: number) {
         this.setState({
-            activeMenuId: categoryId,
             activeIndex: activeIndex,
             menuIndex: -1,
         });
@@ -216,7 +211,6 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
 
     render() {
         let menuList = this.getMenuList();
-
         return (
             <div className="category-items"
                 style={this.props.showCategories ? { display: 'block'} : { display: 'none' }}
@@ -225,7 +219,6 @@ export default class CatalogCategory extends React.Component<ICatalogCategoryPro
                     {menuList}
                 </PerfectScrollbar>
                 <CatalogSubmenu categories={this.state.categories}
-                    activeMenuId={this.state.activeMenuId}
                     menuIndex={this.state.menuIndex}
                     submenuOffsetTop={this.state.submenuOffsetTop}
                     onSubmenuClick={this.handleClickSubmenu.bind(this)}>
