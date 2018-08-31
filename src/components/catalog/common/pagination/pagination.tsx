@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactPaginate from 'react-paginate';
+import ReactPaginate from 'react-paginate';
 import './pagination.scss';
 
 /**
