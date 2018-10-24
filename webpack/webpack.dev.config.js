@@ -31,6 +31,34 @@ module.exports = merge(webpackConfig, {
             }
         }
     },
+    module: {
+        rules: [{
+                test: /\.css$/,
+                use: [{
+                    loader: 'style-loader'
+                }, {
+                    loader: 'css-loader',
+                }],
+            },
+            {
+                test: /\.scss$/,
+                use: [{
+                    loader: 'style-loader',
+                }, {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMap: true,
+                    },
+                }, {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: true,
+                    },
+                }],
+                //loaders的处理顺序是从右向左，就是会先用sass-loader，其次css-loader，再次style-loader
+            },
+        ]
+    },
     devServer: {
         contentBase: path.resolve(__dirname, '../dist'),
         overlay: {

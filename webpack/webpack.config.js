@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -50,44 +49,6 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: 'awesome-typescript-loader'
-            },
-            {
-                test: /\.css$/,
-                use: [{
-                    loader: 'style-loader'
-                }, {
-                    loader: 'css-loader',
-                }],
-            },
-            {
-                test: /\.less$/,
-                use: [{
-                    loader: 'style-loader',
-                }, {
-                    loader: 'css-loader',
-                }, {
-                    loader: 'less-loader',
-                    options: {
-                        sourceMap: true,
-                    },
-                }],
-            },
-            {
-                test: /\.scss$/,
-                use: [{
-                    loader: 'style-loader',
-                }, {
-                    loader: 'css-loader',
-                    options: {
-                        sourceMap: true,
-                    },
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        sourceMap: true,
-                    },
-                }],
-                //loaders的处理顺序是从右向左，就是会先用sass-loader，其次css-loader，再次style-loader
             },
             {
                 test: /\.(jpe?g|png|jpg|eot|woff|ttf|svg|gif)$/i,
